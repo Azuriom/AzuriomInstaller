@@ -3,27 +3,27 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export interface FetchedStatus {
-  downloaded: boolean;
-  extracted: boolean;
-  configured: boolean;
-  installed: boolean;
+export class FetchedStatus {
+  downloaded = false;
+  extracted = false;
+  configured =false;
+  installed = false;
 }
 
-export interface FetchedData {
-  minPhpVersion: string;
-  phpVersion: string;
-  path: string;
-  file: string;
-  requirements: object;
-  compatible: boolean;
-  status: FetchedStatus;
+export class FetchedData {
+  minPhpVersion  = '';
+  phpVersion = '';
+  path = '';
+  file = '';
+  requirements!: object;
+  compatible = false;
+  status!: FetchedStatus;
 }
 
 export class State {
   public loading = false;
 
-  public data!: FetchedData;
+  public data = new FetchedData();
 
   public step = 'requirements';
 

@@ -13,8 +13,9 @@ export default {
         extension: 'Extension {extension}',
 
         help: {
-            writable: 'Vous pouvez essayer de faire cette commande pour autoriser l\'écriture : <code>{commande}</code>.',
-            extension: 'Vous pouvez essayer de faire cette commande pour installer les extensions PHP manquantes : <code>{commande}</code>.',
+            writable: 'Vous pouvez essayer de faire cette commande pour autoriser l\'écriture : <code>{command}</code>.',
+            rewrite: 'Vous pouvez suivre les instructions dans <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">notre documentation</a> pour activer la réécriture d\'URL.',
+            extension: 'Vous pouvez essayer de faire cette commande pour installer les extensions PHP manquantes : <code>{command}</code><br>Une fois fait, redémarrez Apache ou Nginx.',
         },
 
         missing: 'Votre serveur n\'a pas les pré-requis nécessaires pour installer Azuriom.',

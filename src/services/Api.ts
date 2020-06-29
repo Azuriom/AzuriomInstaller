@@ -14,7 +14,7 @@ interface DatabaseConfig {
 }
 
 const client = axios.create({
-  //baseURL: 'http://127.0.0.1:8000/install.php',
+  // baseURL: 'http://127.0.0.1:8000/install.php',
   baseURL: window.location.href,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',

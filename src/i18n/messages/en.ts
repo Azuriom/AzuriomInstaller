@@ -14,7 +14,8 @@ export default {
 
         help: {
             writable: 'You can try this command to grant write permission: <code>{command}</code>.',
-            extension: 'You can try this command to install the missing PHP extensions: <code>{command}</code>.',
+            rewrite: 'You can follow the instructions in <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">our documentation</a> to enable URL rewriting.',
+            extension: 'You can try this command to install the missing PHP extensions: <code>{command}</code>.<br>Once done, restart Apache or Nginx.',
         },
 
         missing: 'Your server doesn\'t have the necessary requirements to install Azuriom.',

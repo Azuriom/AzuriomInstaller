@@ -21,6 +21,11 @@
 
                             <b-icon-x v-else scale="2" variant="danger" class="float-right"/>
                         </div>
+
+                        <div v-if="!requirementStatus && hasHelp(requirement)" class="col-md-12 px-4 mt-2">
+                            <b-icon-info-circle-fill variant="primary" class="mr-1"/>
+                            <span v-html="translateRequirementHelp(requirement)"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,6 +74,28 @@ export default {
 
     nextStep() {
       this.$store.commit('nextStep', this.extracted ? 'database' : 'download');
+    },
+
+    hasHelp(requirement) {
+      return requirement !== 'php';
+    },
+
+    translateRequirementHelp(requirement) {
+      if (requirement.startsWith('extension-')) {
+        const v = this.data.phpVersion;
+
+        return this.$t('requirements.help.extension', {
+          command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
+        });
+      }
+
+      if (requirement === 'writable') {
+        return this.$t('requirements.help.writable', {
+          command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
+        });
+      }
+
+      return this.$t(`requirements.help.${requirement}`);
     },
 
     translateRequirement(requirement) {

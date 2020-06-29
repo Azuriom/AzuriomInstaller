@@ -29,7 +29,8 @@ export default class App extends Vue {}
 
 <style lang="scss">
   body {
-    background: #3588a3;
+    background: #2b1954;
+    background: linear-gradient(45deg, #161334 0%, #181438 36%, #201643 70%, #2b1954 100%);
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,25 +40,15 @@ export default class App extends Vue {}
     z-index: 5;
     min-height: 100vh;
 
-    &:before,
-    &:after {
+    &:before {
       content: '';
       position: fixed;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-    }
-
-    &:before {
-      background: url('https://azuriom.com/assets/img/mountain.jpg') no-repeat center;
+      background: url('./assets/background.svg') no-repeat center / cover;
       z-index: -10;
-    }
-
-    &:after {
-      background: linear-gradient(to bottom, #5b9cb1 0%, #167197 100%);;
-      opacity: 0.8;
-      z-index: -5;
     }
   }
 
