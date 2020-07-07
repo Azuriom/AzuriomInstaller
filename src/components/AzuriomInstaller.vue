@@ -6,21 +6,23 @@
       {{ error }}
     </div>
 
-    <div v-if="preLoading" class="d-flex flex-column align-items-center justify-content-center" style="height: 300px">
-      <div class="spinner-border spinner-border-lg text-primary mb-3"/>
+    <transition name="fade" mode="out-in">
+      <div v-if="preLoading" class="d-flex flex-column align-items-center justify-content-center" style="height: 300px">
+        <div class="spinner-border spinner-border-lg text-primary mb-3"/>
 
-      <h2>{{ $t('loading') }}</h2>
-    </div>
+        <h2>{{ $t('loading') }}</h2>
+      </div>
 
-    <requirements v-else-if="step === 'requirements'" @refresh="refreshRequirements"/>
+      <requirements v-else-if="step === 'requirements'" @refresh="refreshRequirements"/>
 
-    <download v-else-if="step === 'download'" @error="handleError"/>
+      <download v-else-if="step === 'download'" @error="handleError"/>
 
-    <database v-else-if="step === 'database'" @error="handleError"/>
+      <database v-else-if="step === 'database'" @error="handleError"/>
 
-    <config v-else-if="step === 'config'" @error="handleError"/>
+      <config v-else-if="step === 'config'" @error="handleError"/>
 
-    <installed v-else-if="step === 'installed'"/>
+      <installed v-else-if="step === 'installed'"/>
+    </transition>
 
     <hr>
 
@@ -112,6 +114,16 @@ export default class AzuriomInstaller extends Vue {
 </script>
 
 <style lang="scss">
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
+  }
+
   .spinner-border-lg {
     height: 3rem;
     width: 3rem;

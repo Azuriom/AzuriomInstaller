@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div class="row justify-content-center align-items-center py-3 py-md-5">
-        <div class="col-xl-8 col-lg-10 col-12 content p-3 px-md-5 py-md-4">
+        <div class="content col-xl-8 col-lg-10 col-12 p-3 px-md-5 py-md-4 rounded">
           <div class="text-center">
             <img src="./assets/logo.svg" alt="Azuriom logo" class="logo mb-4">
           </div>
@@ -58,7 +58,6 @@ export default class App extends Vue {}
 
   .content {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2), 0 6px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
     background: #eee;
     z-index: 15;
   }

@@ -192,15 +192,17 @@ function fix_utf8($text)
  * Read the given url as a string.
  *
  * @param  string  $url
- * @return bool|string
+ * @param  callable|null  $curlCallback
+ * @return string
  */
-function read_url($url)
+function read_url($url, $curlCallback = null)
 {
     $ch = curl_init($url);
 
     curl_setopt_array($ch, [
+        CURLOPT_CONNECTTIMEOUT => 150,
         CURLOPT_HTTPHEADER => [
-            'User-Agent: Azuriom Installer'
+            'User-Agent: Azuriom Installer',
         ],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
@@ -208,10 +210,27 @@ function read_url($url)
         CURLOPT_SSL_VERIFYHOST => 2,
     ]);
 
-    $data = curl_exec($ch);
+    if ($curlCallback !== null) {
+        $curlCallback($ch);
+    }
+
+    $response = curl_exec($ch);
+    $errno = curl_errno($ch);
+
+    if ($errno || $response === false) {
+        $error = curl_error($ch);
+        throw new RuntimeException("cURL error {$errno}: {$error}");
+    }
+
+    $statusCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+
+    if ($statusCode >= 400) {
+        throw new RuntimeException("HTTP code {$statusCode} returned for '{$url}'.", $statusCode);
+    }
+
     curl_close($ch);
 
-    return $data;
+    return $response;
 }
 
 /**
@@ -219,27 +238,25 @@ function read_url($url)
  *
  * @param  string  $url
  * @param  string  $path
+ * @return string
  */
 function download_file($url, $path)
 {
     $fp = fopen($path, 'wb+');
-    $ch = curl_init($url);
 
-    curl_setopt_array($ch, [
-        CURLOPT_HTTPHEADER => [
-            'User-Agent: Azuriom Installer'
-        ],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_FILE => $fp,
-    ]);
-
-    curl_exec($ch);
-    curl_close($ch);
+    return read_url($url, function ($ch) use ($fp) {
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+    });
 }
 
+/**
+ * Update the give values in the environment file.
+ *
+ * @param  string  $file
+ * @param  array  $values
+ * @param  callable|null  $callback
+ * @return bool
+ */
 function update_env($file, $values, $callback = null)
 {
     $contents = file_get_contents($file);
@@ -531,7 +548,8 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                 ]);
             }
 
-            unlink(__DIR__.'/.env.install');
+            @unlink(__DIR__.'/.env.install');
+            @unlink(__DIR__.'/Azuriom.zip');
 
             send_json_response($data);
         }
@@ -544,27 +562,4 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang=en>
-<head>
-    <meta charset=utf-8>
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta name=viewport content="width=device-width,initial-scale=1">
-    <link rel=icon href=https://azuriom.com/install/assets/img/logo.png>
-    <title>Installation - Azuriom</title>
-    <link href=https://azuriom.com/install/assets/css/app.css rel=preload as=style>
-    <link href=https://azuriom.com/install/assets/css/chunk-vendors.css rel=preload as=style>
-    <link href=https://azuriom.com/install/assets/js/app.js rel=preload as=script>
-    <link href=https://azuriom.com/install/assets/js/chunk-vendors.js rel=preload as=script>
-    <link href=https://azuriom.com/install/assets/css/chunk-vendors.css rel=stylesheet>
-    <link href=https://azuriom.com/install/assets/css/app.css rel=stylesheet>
-</head>
-<body>
-<noscript>
-    <strong>We're sorry but Azuriom installer doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-</noscript>
-<div id=app></div>
-<script src=https://azuriom.com/install/assets/js/chunk-vendors.js></script>
-<script src=https://azuriom.com/install/assets/js/app.js?rev1></script>
-</body>
-</html>
+<!-- Vue.js file -->
