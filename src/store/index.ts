@@ -13,8 +13,10 @@ export class FetchedStatus {
 export class FetchedData {
   minPhpVersion  = '';
   phpVersion = '';
+  phpFullVersion = '';
   path = '';
   file = '';
+  htaccess = true;
   requirements!: object;
   compatible = false;
   status!: FetchedStatus;

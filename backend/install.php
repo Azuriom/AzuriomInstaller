@@ -61,7 +61,7 @@ function escape($value)
  */
 function parse_php_version()
 {
-    preg_match('/^(\d+)\.(\d+)/i', PHP_VERSION, $matches);
+    preg_match('/^(\d+)\.(\d+)/', PHP_VERSION, $matches);
 
     if (count($matches) > 2) {
         return "{$matches[1]}.{$matches[2]}";
@@ -180,7 +180,7 @@ function send_json_response($data = null, $status = 200)
 /**
  * Remove invalid UTF-8 characters.
  *
- * @param string $text
+ * @param  string  $text
  * @return string
  */
 function fix_utf8($text)
@@ -294,8 +294,10 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
         $data = [
             'minPhpVersion' => $minPhpVersion,
             'phpVersion' => parse_php_version(),
+            'phpFullVersion' => PHP_VERSION,
             'path' => __DIR__,
             'file' => __FILE__,
+            'htaccess' => file_exists(__DIR__.'/.htaccess') && file_exists(__DIR__.'/public/.htaccess'),
         ];
 
         $step = 'check';
@@ -497,12 +499,12 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
             // Everything is good we can install :)
 
             $result = @update_env(__DIR__.'/.env.install', [
-                'APP_LOCALE' => $locale,
-                'APP_URL' => request_url(),
-                'MAIL_MAILER' => 'array',
-            ] + (isset($steamKey) ? ['STEAM_KEY' => $steamKey] : []));
+                    'APP_LOCALE' => $locale,
+                    'APP_URL' => request_url(),
+                    'MAIL_MAILER' => 'array',
+                ] + (isset($steamKey) ? ['STEAM_KEY' => $steamKey] : []));
 
-            if (! $result) {
+            if ($result === false) {
                 throw new RuntimeException('Unable to write .env.install');
             }
 

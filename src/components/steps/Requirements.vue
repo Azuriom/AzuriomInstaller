@@ -11,7 +11,7 @@
                         </div>
 
                         <div v-if="requirement === 'php'" class="col-2">
-                            <span class="float-right" :class="requirementStatus ? 'text-success' : 'text-danger'">
+                            <span class="float-right" :class="requirementStatus ? 'text-success' : 'text-danger'" :title="data.phpFullVersion">
                                 {{ data.phpVersion }}
                             </span>
                         </div>
@@ -93,6 +93,10 @@ export default {
         return this.$t('requirements.help.writable', {
           command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
         });
+      }
+
+      if (requirement === 'writable' && !this.data.htaccess) {
+        return this.$t('requirements.help.htaccess');
       }
 
       return this.$t(`requirements.help.${requirement}`);
