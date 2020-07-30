@@ -517,37 +517,45 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                 throw new RuntimeException('Unable to copy .env');
             }
 
-            $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+            try {
+                $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 
-            $kernel->call('cache:clear');
+                $kernel->call('cache:clear');
 
-            $kernel->call('key:generate');
+                $kernel->call('key:generate');
 
-            $kernel->call('migrate', ['--force' => true, '--seed' => true]);
+                $kernel->call('migrate', ['--force' => true, '--seed' => true]);
 
-            $kernel->call('storage:link', ! windows_os() ? ['--relative' => true] : []);
+                $kernel->call('storage:link', ! windows_os() ? ['--relative' => true] : []);
 
-            if (isset($steamId, $steamKey)) {
-                $password = \Illuminate\Support\Str::random(32);
+                if (isset($steamId, $steamKey)) {
+                    $password = \Illuminate\Support\Str::random(32);
 
-                $user = \Azuriom\Models\User::create([
-                    'name' => 'Admin',
-                    'email' => 'admin@domain',
-                    'password' => \Illuminate\Support\Facades\Hash::make($password),
-                    'game_id' => $steamId,
-                ]);
+                    $user = \Azuriom\Models\User::create([
+                        'name' => 'Admin',
+                        'email' => 'admin@domain',
+                        'password' => \Illuminate\Support\Facades\Hash::make($password),
+                        'game_id' => $steamId,
+                    ]);
 
-                $user->markEmailAsVerified();
-                $user->forceFill(['role_id' => 2])->save();
+                    $user->markEmailAsVerified();
+                    $user->forceFill(['role_id' => 2])->save();
 
-                \Azuriom\Models\Setting::updateSettings('register', false);
-            } else {
-                $kernel->call('user:create', [
-                    '--name' => $name,
-                    '--email' => $email,
-                    '--password' => $password,
-                    '--admin' => true,
-                ]);
+                    \Azuriom\Models\Setting::updateSettings('register', false);
+                } else {
+                    $kernel->call('user:create', [
+                        '--name' => $name,
+                        '--email' => $email,
+                        '--password' => $password,
+                        '--admin' => true,
+                    ]);
+                }
+            } catch (Throwable $e) {
+                // We remove the .env file because otherwise Azuriom
+                // will think the site was correctly installed.
+                @unlink(__DIR__.'/.env');
+
+                throw $e;
             }
 
             @unlink(__DIR__.'/.env.install');
