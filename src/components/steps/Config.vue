@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <transition name="fade" mode="out-in">
         <div v-if="!game">
             <div id="gameSelect" class="text-center">
                 <h2 class="mb-3">{{ $t('config.game.title') }}</h2>
@@ -15,7 +15,7 @@
 
                     <div class="col-md-4">
                         <a href="#" @click.prevent="selectGame('gmod')">
-                            <img src="./../../assets/games/gmod.svg" alt="Minecraft" class="img-fluid rounded mb-1">
+                            <img src="./../../assets/games/gmod.svg" alt="Garry's mod" class="img-fluid rounded m-3">
 
                             <p>Garry's mod</p>
                         </a>
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label for="name">{{ $t('config.user.name') }}</label>
 
-                    <input v-model="name" :class="inputClass($v.name)" id="name" type="text" class="form-control" autocomplete="name">
+                    <input v-model.trim="name" :class="inputClass($v.name)" id="name" type="text" class="form-control" autocomplete="name">
 
                     <div v-if="$v.name.$error" class="invalid-feedback">
                         {{ $t('validation.required') }}
@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <label for="email">{{ $t('config.user.email') }}</label>
 
-                    <input v-model="email" :class="inputClass($v.email)" id="email" type="email" class="form-control" autocomplete="email">
+                    <input v-model.trim="email" :class="inputClass($v.email)" id="email" type="email" class="form-control" autocomplete="email">
 
                     <div v-if="$v.email.$error" class="invalid-feedback">
                         {{ $t('validation.email') }}
@@ -141,7 +141,7 @@
                 </button>
             </div>
         </form>
-    </div>
+  </transition>
 </template>
 
 <script>
@@ -165,12 +165,11 @@ export default {
       password: '',
       passwordConfirm: '',
       minecraftPremium: false,
+      locale: this.$i18n.locale,
       locales: {
         en: 'English',
         fr: 'Français',
       },
-      locale: this.$i18n.locale,
-
       games: {
         minecraft: 'Minecraft',
         gmod: 'Garry\'s mod',
@@ -190,9 +189,11 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
+
       this.$store.commit('startLoading');
 
       Api.config(this.game, {
+        locale: this.locale,
         name: this.name,
         email: this.email,
         password: this.password,

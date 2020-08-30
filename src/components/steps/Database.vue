@@ -15,7 +15,7 @@
         <div class="form-row">
             <div class="form-group col-md-9">
                 <label for="host">{{ $t('database.host') }}</label>
-                <input v-model="host" :class="inputClass($v.host)" type="text" class="form-control" id="host" placeholder="127.0.0.1">
+                <input v-model.trim="host" :class="inputClass($v.host)" type="text" class="form-control" id="host" placeholder="127.0.0.1">
 
                 <div v-if="$v.host.$error" class="invalid-feedback">
                     {{ $t('validation.required') }}
@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label for="database">{{ $t('database.database') }}</label>
-            <input v-model="database" :class="inputClass($v.database)" type="text" class="form-control" id="database" placeholder="azuriom">
+            <input v-model.trim="database" :class="inputClass($v.database)" type="text" class="form-control" id="database" placeholder="azuriom">
 
             <div v-if="$v.database.$error" class="invalid-feedback">
                 {{ $t('validation.required') }}
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <label for="user">{{ $t('database.user') }}</label>
-            <input v-model="user" :class="inputClass($v.user)" type="text" class="form-control" id="user" placeholder="root">
+            <input v-model.trim="user" :class="inputClass($v.user)" type="text" class="form-control" id="user" placeholder="root">
 
             <div v-if="$v.user.$error" class="invalid-feedback">
                 {{ $t('validation.required') }}

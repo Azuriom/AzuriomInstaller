@@ -4,7 +4,7 @@ export default {
     continue: 'Continue',
     error: 'An error occurred: {error}',
     welcome: 'Azuriom is the <strong>next generation</strong> game CMS, it\'s <strong>free</strong> and <strong>open-source</strong>, and is a <strong>modern, reliable, fast and secure</strong> alternative to existing CMS so you can have the <strong>best web experience possible</strong>.',
-    copyright: 'Copyright &copy; 2019-{year} Azuriom - All rights reserved.',
+    copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener">Azuriom</a> - All rights reserved.',
 
     requirements: {
         php: 'PHP {version} or higher',

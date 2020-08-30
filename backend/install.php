@@ -120,7 +120,7 @@ function request_url()
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
     $path = ! empty($_SERVER['REQUEST_URI']) ? explode('?', $_SERVER['REQUEST_URI'])[0] : '';
 
-    return "{$scheme}://{$host}/{$path}";
+    return "{$scheme}://{$host}{$path}";
 }
 
 $requestContent = null;
@@ -458,14 +458,12 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
         }
 
         if ($action === 'config') {
-            $game = request_input('game');
-
             $name = request_input('name');
             $email = request_input('email');
             $password = request_input('password');
             $game = request_input('game');
 
-            $locale = request_input('lang', 'en');
+            $locale = request_input('locale', 'en');
 
             if (! in_array($locale, $locales, true)) {
                 send_json_response(['message' => 'Invalid locale: '.$locale], 422);
@@ -500,7 +498,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 
             $result = @update_env(__DIR__.'/.env.install', [
                     'APP_LOCALE' => $locale,
-                    'APP_URL' => request_url(),
+                    'APP_URL' => str_replace('install.php', '', request_url()),
                     'MAIL_MAILER' => 'array',
                 ] + (isset($steamKey) ? ['STEAM_KEY' => $steamKey] : []));
 
