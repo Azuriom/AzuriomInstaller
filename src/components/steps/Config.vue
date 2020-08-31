@@ -4,28 +4,54 @@
             <div id="gameSelect" class="text-center">
                 <h2 class="mb-3">{{ $t('config.game.title') }}</h2>
 
-                <div class="row">
+                <div class="row justify-content-center mb-3">
                     <div class="col-md-4">
                         <a href="#" @click.prevent="selectGame('minecraft')">
-                            <img src="./../../assets/games/minecraft.png" alt="Minecraft" class="img-fluid rounded mb-1">
+                            <img src="./../../assets/games/minecraft.png" alt="Minecraft" class="img-fluid mb-1">
 
                             <p>Minecraft</p>
                         </a>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="ml-md-4 col-md-4">
                         <a href="#" @click.prevent="selectGame('gmod')">
                             <img src="./../../assets/games/gmod.svg" alt="Garry's mod" class="img-fluid rounded m-3">
 
                             <p>Garry's mod</p>
                         </a>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#" @click.prevent="selectGame('ark')">
+                            <img src="./../../assets/games/ark.png" alt="ARK: Survival Evolved" class="img-fluid mb-1">
+
+                            <p>ARK: Survival Evolved</p>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a href="#" @click.prevent="selectGame('rust')">
+                            <img src="./../../assets/games/rust.svg" alt="Rust" class="img-fluid rounded mb-1">
+
+                            <p>Rust</p>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
                         <a href="#" @click.prevent="selectGame('csgo')">
-                            <img src="./../../assets/games/csgo.png" alt="Minecraft" class="img-fluid rounded mb-1">
+                            <img src="./../../assets/games/csgo.png" alt="CS:GO" class="img-fluid rounded mb-1">
 
                             <p>CS:GO</p>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a href="#" @click.prevent="selectGame('tf2')">
+                            <img src="./../../assets/games/tf2.svg" alt="Team Fortress 2" class="img-fluid mb-1">
+
+                            <p>Team Fortress 2</p>
                         </a>
                     </div>
                 </div>
@@ -39,12 +65,9 @@
         <form v-else @submit.prevent="install">
             <h2 class="text-center">{{ games[game] }}</h2>
 
-            <!-- TODO Steam games -->
-            <!--
             <button @click="selectGame(null)" type="button" class="btn btn-secondary mb-3">
                 <b-icon-arrow-left/> {{ $t('config.game.change') }}
             </button>
-            -->
 
             <h3>{{ $t('config.settings.title') }}</h3>
 
@@ -157,7 +180,7 @@ export default {
 
   data() {
     return {
-      game: 'minecraft', // TODO Steam Games
+      game: null,
       steamProfile: '',
       steamKey: '',
       name: '',
@@ -173,7 +196,10 @@ export default {
       games: {
         minecraft: 'Minecraft',
         gmod: 'Garry\'s mod',
+        ark: 'ARK: Survival Evolved',
+        rust: 'Rust',
         csgo: 'CS:GO',
+        tf2: 'Team Fortress 2',
       },
     };
   },

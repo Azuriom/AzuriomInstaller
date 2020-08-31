@@ -7,10 +7,11 @@
  * and can be remove when Azuriom is installed.
  *
  * @author Azuriom
- * @version 1.0.0-SNAPSHOT
  */
 
 /** @noinspection PhpComposerExtensionStubsInspection */
+
+$installerVersion = '0.2.1';
 
 $minPhpVersion = '7.2';
 
@@ -29,7 +30,7 @@ $steps = [
 
 // The Steam games supported by Azuriom
 $steamGames = [
-    'gmod', 'csgo'
+    'gmod', 'ark', 'rust', 'csgo',
 ];
 
 // The games supported by Azuriom
@@ -292,6 +293,7 @@ function update_env($file, $values, $callback = null)
 if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
     try {
         $data = [
+            'installerVersion' => $installerVersion,
             'minPhpVersion' => $minPhpVersion,
             'phpVersion' => parse_php_version(),
             'phpFullVersion' => PHP_VERSION,
@@ -474,7 +476,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                     send_json_response(['message' => 'Missing or invalid parameters.'], 422);
                 }
 
-                $game = request_input('premium') ? 'mc-online' : 'mc-offline';
+                $game = request_input('minecraftPremium') ? 'mc-online' : 'mc-offline';
             } else {
                 $profile = read_url(request_input('steamProfile').'?xml=1');
 
@@ -500,6 +502,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                     'APP_LOCALE' => $locale,
                     'APP_URL' => str_replace('install.php', '', request_url()),
                     'MAIL_MAILER' => 'array',
+                    'AZURIOM_GAME' => $game,
                 ] + (isset($steamKey) ? ['STEAM_KEY' => $steamKey] : []));
 
             if ($result === false) {
