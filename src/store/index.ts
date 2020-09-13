@@ -14,6 +14,7 @@ export class FetchedData {
   minPhpVersion  = '';
   phpVersion = '';
   phpFullVersion = '';
+  phpIniPath = '';
   path = '';
   file = '';
   htaccess = true;

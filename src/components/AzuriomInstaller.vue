@@ -4,6 +4,8 @@
 
     <div v-for="error in errors" :key="error" class="alert alert-danger" role="alert">
       {{ error }}
+
+      <div v-if="error.startsWith('cURL error 60:')" v-html="$t('help.cUrl60', { path: data.phpIniPath ?? $('unknown') })"/>
     </div>
 
     <transition name="fade" mode="out-in">
@@ -100,7 +102,7 @@ export default class AzuriomInstaller extends Vue {
       return;
     }
 
-    this.addError(this.$t('error', { error }));
+    this.addError(this.$t('error', { error }) as string);
   }
 
   addError(error: string) {

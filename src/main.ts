@@ -1,5 +1,4 @@
 import Vue from 'vue';
-// @ts-ignore
 import Vuelidate from 'vuelidate';
 import { IconsPlugin } from 'bootstrap-vue';
 import App from './App.vue';

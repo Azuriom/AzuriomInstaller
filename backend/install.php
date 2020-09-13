@@ -297,6 +297,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
             'minPhpVersion' => $minPhpVersion,
             'phpVersion' => parse_php_version(),
             'phpFullVersion' => PHP_VERSION,
+            'phpIniPath' => php_ini_loaded_file(),
             'path' => __DIR__,
             'file' => __FILE__,
             'htaccess' => file_exists(__DIR__.'/.htaccess') && file_exists(__DIR__.'/public/.htaccess'),

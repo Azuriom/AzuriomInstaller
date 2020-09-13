@@ -4,7 +4,12 @@ export default {
     continue: 'Continuer',
     error: 'Une erreur est survenue : {error}',
     welcome: 'Azuriom est un CMS de jeux <strong>dernière génération</strong>, <strong>gratuit et open-source</strong>, qui a pour objectif d\'être une alternative <strong>moderne, fiable, rapide et sécurisée</strong> par rapport aux CMS existants afin de vous proposer <strong>la meilleure expérience web</strong> possible pour votre serveur.',
-    copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener">Azuriom</a> - Tous droits réservés.',
+    copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Tous droits réservés.',
+    unknown: 'Inconnu',
+
+    help: {
+      cUrl60: 'Vous pouvez suivre les étapes dans la <a href="https://azuriom.com/docs/troubleshooting" target="_blank" rel="noopener noreferrer">documentation</a> pour corriger ce problème. Chemin du fichier php.ini : <code>{path}</code>',
+    },
 
     requirements: {
         php: 'PHP {version} ou plus récent',
