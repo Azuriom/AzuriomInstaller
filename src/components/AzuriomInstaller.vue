@@ -5,7 +5,7 @@
     <div v-for="error in errors" :key="error" class="alert alert-danger" role="alert">
       {{ error }}
 
-      <div v-if="error.startsWith('cURL error 60:')" v-html="$t('help.cUrl60', { path: data.phpIniPath ?? $('unknown') })"/>
+      <div v-if="error.startsWith('cURL error 60:')" v-html="$t('help.cUrl60', { path: phpIniPath ? phpIniPath : $t('unknown') })"/>
     </div>
 
     <transition name="fade" mode="out-in">
@@ -60,6 +60,7 @@ import Download from '@/components/steps/Download.vue';
 import Database from '@/components/steps/Database.vue';
 import Config from '@/components/steps/Config.vue';
 import Installed from '@/components/steps/Installed.vue';
+import { AxiosError } from 'axios';
 
 @Component({
   components: {
@@ -68,7 +69,7 @@ import Installed from '@/components/steps/Installed.vue';
 
   computed: {
     ...mapState(['loading', 'step']),
-    ...mapGetters(['requirements', 'compatible', 'downloaded', 'errors']),
+    ...mapGetters(['requirements', 'compatible', 'downloaded', 'errors', 'phpIniPath']),
   },
 })
 export default class AzuriomInstaller extends Vue {
@@ -96,7 +97,7 @@ export default class AzuriomInstaller extends Vue {
     });
   }
 
-  handleError(error: any) {
+  handleError(error: AxiosError) {
     if (error.response && error.response.data && error.response.data.message) {
       this.addError(error.response.data.message);
       return;

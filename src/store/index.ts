@@ -1,37 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import State from '@/store/State';
 
 Vue.use(Vuex);
-
-export class FetchedStatus {
-  downloaded = false;
-  extracted = false;
-  configured =false;
-  installed = false;
-}
-
-export class FetchedData {
-  minPhpVersion  = '';
-  phpVersion = '';
-  phpFullVersion = '';
-  phpIniPath = '';
-  path = '';
-  file = '';
-  htaccess = true;
-  requirements!: object;
-  compatible = false;
-  status!: FetchedStatus;
-}
-
-export class State {
-  public loading = false;
-
-  public data = new FetchedData();
-
-  public step = 'requirements';
-
-  public errors: string[] = [];
-}
 
 export default new Vuex.Store({
   state: new State(),
@@ -52,6 +23,9 @@ export default new Vuex.Store({
     data(state) {
       return state.data;
     },
+    phpIniPath(state) {
+      return state.phpIniPath;
+    },
   },
 
   mutations: {
@@ -64,6 +38,10 @@ export default new Vuex.Store({
     },
     updateData(state, data) {
       state.data = data;
+
+      if (data && data.phpIniPath) {
+        state.phpIniPath = data.phpIniPath;
+      }
     },
     nextStep(state, step) {
       state.step = step;

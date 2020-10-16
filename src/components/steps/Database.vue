@@ -1,75 +1,75 @@
 <template>
-<form @submit.prevent="verifyDatabase">
+  <form @submit.prevent="verifyDatabase">
     <h2>{{ $t('database.title') }}</h2>
 
     <div class="form-group">
-        <label for="type">{{ $t('database.type') }}</label>
-        <select v-model="type" class="custom-select" id="type">
-            <option value="mysql">MySQL</option>
-            <option value="sqlite">SQLite</option>
-            <option value="pgsql">PostgreSQL</option>
-        </select>
+      <label for="type">{{ $t('database.type') }}</label>
+      <select v-model="type" class="custom-select" id="type">
+        <option value="mysql">MySQL</option>
+        <option value="sqlite">SQLite</option>
+        <option value="pgsql">PostgreSQL</option>
+      </select>
     </div>
 
     <div v-if="hasCredentials" id="databaseForm">
-        <div class="form-row">
-            <div class="form-group col-md-9">
-                <label for="host">{{ $t('database.host') }}</label>
-                <input v-model.trim="host" :class="inputClass($v.host)" type="text" class="form-control" id="host" placeholder="127.0.0.1">
+      <div class="form-row">
+        <div class="form-group col-md-9">
+          <label for="host">{{ $t('database.host') }}</label>
+          <input v-model.trim="host" :class="inputClass($v.host)" type="text" class="form-control" id="host" placeholder="127.0.0.1">
 
-                <div v-if="$v.host.$error" class="invalid-feedback">
-                    {{ $t('validation.required') }}
-                </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label for="port">{{ $t('database.port') }}</label>
-                <input v-model="port" :class="inputClass($v.port)" type="number" class="form-control" id="port" placeholder="3306">
-
-                <div v-if="$v.port.$error" class="invalid-feedback">
-                    {{ $t('validation.required') }}
-                </div>
-            </div>
+          <div v-if="$v.host.$error" class="invalid-feedback">
+            {{ $t('validation.required') }}
+          </div>
         </div>
 
-        <div class="form-group">
-            <label for="database">{{ $t('database.database') }}</label>
-            <input v-model.trim="database" :class="inputClass($v.database)" type="text" class="form-control" id="database" placeholder="azuriom">
+        <div class="form-group col-md-3">
+          <label for="port">{{ $t('database.port') }}</label>
+          <input v-model="port" :class="inputClass($v.port)" type="number" class="form-control" id="port" placeholder="3306">
 
-            <div v-if="$v.database.$error" class="invalid-feedback">
-                {{ $t('validation.required') }}
-            </div>
+          <div v-if="$v.port.$error" class="invalid-feedback">
+            {{ $t('validation.required') }}
+          </div>
         </div>
+      </div>
 
-        <div class="form-group">
-            <label for="user">{{ $t('database.user') }}</label>
-            <input v-model.trim="user" :class="inputClass($v.user)" type="text" class="form-control" id="user" placeholder="root">
+      <div class="form-group">
+        <label for="database">{{ $t('database.database') }}</label>
+        <input v-model.trim="database" :class="inputClass($v.database)" type="text" class="form-control" id="database" placeholder="azuriom">
 
-            <div v-if="$v.user.$error" class="invalid-feedback">
-                {{ $t('validation.required') }}
-            </div>
+        <div v-if="$v.database.$error" class="invalid-feedback">
+          {{ $t('validation.required') }}
         </div>
+      </div>
 
-        <div class="form-group">
-            <label for="password">{{ $t('database.password') }}</label>
-            <input v-model="password" type="password" class="form-control" id="password" placeholder="123456">
+      <div class="form-group">
+        <label for="user">{{ $t('database.user') }}</label>
+        <input v-model.trim="user" :class="inputClass($v.user)" type="text" class="form-control" id="user" placeholder="root">
+
+        <div v-if="$v.user.$error" class="invalid-feedback">
+          {{ $t('validation.required') }}
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{ $t('database.password') }}</label>
+        <input v-model="password" type="password" class="form-control" id="password" placeholder="123456">
+      </div>
     </div>
 
     <p v-if="type === 'sqlite'" class="text-danger">{{ $t('database.sqlite') }}</p>
 
     <div class="text-center">
-        <button type="submit" class="btn btn-primary">
-            {{ $t('continue') }}
-            <span v-if="loading" class="spinner-border spinner-border-sm"/>
-            <b-icon-arrow-right v-else/>
-        </button>
+      <button type="submit" class="btn btn-primary">
+        {{ $t('continue') }}
+        <span v-if="loading" class="spinner-border spinner-border-sm"/>
+        <b-icon-arrow-right v-else/>
+      </button>
     </div>
-</form>
+  </form>
 </template>
 
 <script>
-import { requiredIf, numeric, between } from 'vuelidate/lib/validators';
+import { between, numeric, requiredIf } from 'vuelidate/lib/validators';
 import Api from '@/services/Api';
 import { mapState } from 'vuex';
 

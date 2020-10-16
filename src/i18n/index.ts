@@ -6,16 +6,16 @@ import fr from './messages/fr';
 Vue.use(VueI18n);
 
 function getBrowserLocale() {
-    if (!navigator.language) {
-        return 'en';
-    }
-    return navigator.language.split('-')[0];
+  if (!navigator.language) {
+    return 'en';
+  }
+  return navigator.language.split('-')[0];
 }
 
 export default new VueI18n({
-    messages: {
-        en, fr,
-    },
-    locale: getBrowserLocale(),
-    fallbackLocale: 'en',
+  messages: {
+    en, fr,
+  },
+  locale: getBrowserLocale(),
+  fallbackLocale: 'en',
 });

@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <h2>{{ $t('download.title') }}</h2>
+  <div>
+    <h2>{{ $t('download.title') }}</h2>
 
-        <p v-html="$t('download.legal')"/>
+    <p v-html="$t('download.legal')"/>
 
-        <div class="text-center">
-            <button @click="download" class="btn btn-primary">
-                <b-icon-cloud-download/> {{ $t('download.go') }}
+    <div class="text-center">
+      <button @click="download" class="btn btn-primary">
+        <b-icon-cloud-download/> {{ $t('download.go') }}
 
-                <span v-if="loading" class="spinner-border spinner-border-sm"/>
-            </button>
-        </div>
+        <span v-if="loading" class="spinner-border spinner-border-sm"/>
+      </button>
     </div>
+  </div>
 </template>
 
 <script>

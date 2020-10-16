@@ -47,7 +47,7 @@ export default {
     return client.post('', {
       ...data,
       action: 'config',
-      game: game,
+      game,
     });
   },
 };

@@ -13,7 +13,7 @@
 
 $installerVersion = '0.2.1';
 
-$minPhpVersion = '7.2';
+$minPhpVersion = '7.3';
 
 $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'curl', 'zip', 'gd',
@@ -30,7 +30,7 @@ $steps = [
 
 // The Steam games supported by Azuriom
 $steamGames = [
-    'gmod', 'ark', 'rust', 'csgo',
+    'gmod', 'ark', 'rust', 'csgo', 'tf2',
 ];
 
 // The games supported by Azuriom
