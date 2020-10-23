@@ -52,6 +52,7 @@
 </template>
 
 <script lang="ts">
+import { AxiosError } from 'axios';
 import { Component, Vue } from 'vue-property-decorator';
 import { mapGetters, mapState } from 'vuex';
 import Api from '@/services/Api';
@@ -60,7 +61,6 @@ import Download from '@/components/steps/Download.vue';
 import Database from '@/components/steps/Database.vue';
 import Config from '@/components/steps/Config.vue';
 import Installed from '@/components/steps/Installed.vue';
-import { AxiosError } from 'axios';
 
 @Component({
   components: {

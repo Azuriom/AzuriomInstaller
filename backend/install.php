@@ -251,6 +251,25 @@ function download_file($url, $path)
 }
 
 /**
+ * Determines if a function exists and is not disabled.
+ *
+ * @param  string  $function
+ * @return bool
+ */
+function has_function($function)
+{
+    if (! function_exists($function)) {
+        return false;
+    }
+
+    try {
+        return strpos(ini_get('disable_functions'), $function) === false;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+/**
  * Update the give values in the environment file.
  *
  * @param  string  $file
@@ -310,6 +329,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
         $requirements = [
             'php' => version_compare(PHP_VERSION, $minPhpVersion, '>='),
             'writable' => $writable,
+            'function-symlink' => has_function('symlink'),
         ];
 
         $extracted = file_exists(__DIR__.'/vendor');

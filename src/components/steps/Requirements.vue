@@ -88,6 +88,10 @@ export default {
         });
       }
 
+      if (requirement.startsWith('function-')) {
+        return this.$t('requirements.help.function');
+      }
+
       if (requirement === 'writable') {
         return this.$t('requirements.help.writable', {
           command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
@@ -105,6 +109,12 @@ export default {
       if (requirement.startsWith('extension-')) {
         return this.$t('requirements.extension', {
           extension: requirement.replace('extension-', ''),
+        });
+      }
+
+      if (requirement.startsWith('function-')) {
+        return this.$t('requirements.function', {
+          function: requirement.replace('function-', ''),
         });
       }
 
