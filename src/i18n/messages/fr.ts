@@ -47,7 +47,7 @@ export default {
     user: 'Utilisateur',
     password: 'Mot de passe',
 
-    sqlite: 'SQLite n\'est pas recommandé et ne doit être utilisé que lorsqu\'il n\'est pas possible de faire autrement.',
+    warn: '{database} n\'est pas recommandé et ne devrait être utilisé que lorsqu\'il n\'est pas possible de faire autrement.',
   },
 
   config: {

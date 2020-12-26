@@ -11,12 +11,12 @@
 
 /** @noinspection PhpComposerExtensionStubsInspection */
 
-$installerVersion = '0.2.1';
+$installerVersion = '0.2.2';
 
 $minPhpVersion = '7.3';
 
 $requiredExtensions = [
-    'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'curl', 'zip', 'gd',
+    'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',
 ];
 
 // The different installation steps
@@ -39,6 +39,17 @@ $supportedGames = array_merge([
 ], $steamGames);
 
 $locales = ['en', 'fr'];
+
+$databasePorts = [
+    'mysql' => 3306,
+    'pgsql' => 5432,
+    'sqlsrv' => 1433,
+];
+
+set_error_handler(function ($level, $message, $file = 'unknown', $line = 0) {
+    http_response_code(500);
+    exit(json_encode(['message' => "A fatal error occurred: {$message} ({$file}:{$line})"]));
+});
 
 //
 // Some helper functions
@@ -438,19 +449,28 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                 }
             }
 
-            if ($databaseType === 'mysql' || $databaseType === 'pgsql') {
+            if (array_key_exists($databaseType, $databasePorts)) {
                 try {
                     $host = request_input('credentials.host');
-                    $port = request_input('credentials.port', $databaseType === 'pgsql' ? 5432 : 3306);
+                    $port = request_input('credentials.port');
                     $database = request_input('credentials.database');
                     $user = request_input('credentials.user');
                     $password = request_input('credentials.password');
 
-                    if (empty($host) || empty($database) || ! is_numeric($port) || empty($user)) {
+                    // SQLServer sometimes won't work with a port ?!
+                    if (! $port && $databaseType !== 'sqlsrv') {
+                        $port = $databasePorts[$databaseType];
+                    }
+
+                    if (empty($host) || empty($database) || empty($user)) {
                         send_json_response(['message' => 'Missing or invalid parameters.'], 422);
                     }
 
-                    new PDO("{$databaseType}:host={$host};port={$port};dbname={$database}", $user, $password, [
+                    $dsn = $databaseType !== 'sqlsrv'
+                        ? "host={$host};port={$port};dbname={$database}"
+                        : 'Server='.implode(',', $port ? [$host, $port] : [$host]).";Database={$database}";
+
+                    new PDO("{$databaseType}:{$dsn}", $user, $password, [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     ]);
 

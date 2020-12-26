@@ -5,9 +5,7 @@
     <div class="form-group">
       <label for="type">{{ $t('database.type') }}</label>
       <select v-model="type" class="custom-select" id="type">
-        <option value="mysql">MySQL</option>
-        <option value="sqlite">SQLite</option>
-        <option value="pgsql">PostgreSQL</option>
+        <option v-for="(dbName, dbId) in databaseDrivers" :value="dbId" :key="dbId">{{ dbName}}</option>
       </select>
     </div>
 
@@ -56,7 +54,9 @@
       </div>
     </div>
 
-    <p v-if="type === 'sqlite'" class="text-danger">{{ $t('database.sqlite') }}</p>
+    <p v-if="type === 'sqlite' || type === 'sqlsrv'" class="text-danger">
+      {{ $t('database.warn', { database: databaseDrivers[type] }) }}
+    </p>
 
     <div class="text-center">
       <button type="submit" class="btn btn-primary">
@@ -80,10 +80,17 @@ export default {
     return {
       type: 'mysql',
       host: '',
-      port: 3306,
+      port: null,
       user: '',
       database: '',
       password: '',
+
+      databaseDrivers: {
+        mysql: 'MySQL',
+        sqlite: 'SQLite',
+        pgsql: 'PostgreSQL',
+        sqlsrv: 'SQLServer',
+      },
     };
   },
 

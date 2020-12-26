@@ -83,7 +83,7 @@
         <div class="form-group">
           <label for="steamProfile">{{ $t('config.steam.profile') }}</label>
 
-          <input v-model="steamProfile" :class="{'is-invalid': $v.steamProfile.$error}" id="steamProfile" type="url" class="form-control" placeholder="http://steamcommunity.com/profiles/****">
+          <input v-model="steamProfile" :class="{'is-invalid': $v.steamProfile.$error}" id="steamProfile" type="url" class="form-control" placeholder="https://steamcommunity.com/profiles/****">
 
           <div v-if="$v.steamProfile.$error" class="invalid-feedback">
             {{ $t('validation.required') }}
