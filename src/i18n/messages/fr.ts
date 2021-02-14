@@ -51,7 +51,7 @@ export default {
   },
 
   config: {
-    warn: 'Attention, une fois l\'installation terminée, il ne sera pas possible de changer le jeu sans réinstaller entièrement Azuriom !',
+    warn: 'Attention, une fois l\'installation terminée, il ne sera pas possible de changer sans réinstaller entièrement Azuriom !',
 
     game: {
       title: 'Sélectionner le jeu',

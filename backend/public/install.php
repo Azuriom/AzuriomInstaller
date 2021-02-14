@@ -1,6 +1,10 @@
 <?php
 
-if (file_exists(__DIR__.'/../install.php') && ! file_exists(__DIR__.'/../.env')) {
+if (! file_exists(__DIR__.'/../.env')) {
+    if (! file_exists(__DIR__.'/../install.php')) {
+        exit('The Azuriom installer is not installed properly.');
+    }
+
     $validInstallationUrlRewrite = true;
 
     require __DIR__.'/../install.php';
@@ -9,7 +13,7 @@ if (file_exists(__DIR__.'/../install.php') && ! file_exists(__DIR__.'/../.env'))
 }
 
 if (! file_exists(__DIR__.'/../vendor/autoload.php')) {
-    exit('You need to install Azuriom with the installer or manually download the dependencies.');
+    exit('Azuriom is not installed but the file .env already exists. You need to delete it to continue the installation. You might need to enable hidden files in some FTP clients like WinSCP.');
 }
 
 $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';

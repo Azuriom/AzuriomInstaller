@@ -5,7 +5,7 @@
         <h2 class="mb-3">{{ $t('config.game.title') }}</h2>
 
         <div class="row justify-content-center mb-3">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <a href="#" @click.prevent="selectGame('minecraft')">
               <img src="./../../assets/games/minecraft.png" alt="Minecraft" class="img-fluid mb-1">
 
@@ -13,16 +13,22 @@
             </a>
           </div>
 
-          <div class="ml-md-4 col-md-4">
+          <div class="col-md-3">
             <a href="#" @click.prevent="selectGame('gmod')">
               <img src="./../../assets/games/gmod.svg" alt="Garry's mod" class="img-fluid rounded m-3">
 
               <p>Garry's mod</p>
             </a>
           </div>
-        </div>
 
-        <div class="row">
+          <div class="col-md-3">
+            <a href="#" @click.prevent="selectGame('rust')">
+              <img src="./../../assets/games/rust.svg" alt="Rust" class="img-fluid rounded mb-1">
+
+              <p>Rust</p>
+            </a>
+          </div>
+
           <div class="col-md-3">
             <a href="#" @click.prevent="selectGame('ark')">
               <img src="./../../assets/games/ark.png" alt="ARK: Survival Evolved" class="img-fluid mb-1">
@@ -32,10 +38,10 @@
           </div>
 
           <div class="col-md-3">
-            <a href="#" @click.prevent="selectGame('rust')">
-              <img src="./../../assets/games/rust.svg" alt="Rust" class="img-fluid rounded mb-1">
+            <a href="#" @click.prevent="selectGame('fivem')">
+              <img src="./../../assets/games/fivem.svg" alt="FiveM" class="img-fluid rounded mb-1">
 
-              <p>Rust</p>
+              <p>FiveM</p>
             </a>
           </div>
 
@@ -153,6 +159,8 @@
             <input v-model="minecraftPremium" type="checkbox" class="custom-control-input" id="minecraftPremiumSwitch">
             <label class="custom-control-label" for="minecraftPremiumSwitch">{{ $t('config.minecraft.premium') }}</label>
           </div>
+
+          <small class="form-text text-danger">{{ $t('config.warn') }}</small>
         </div>
       </div>
 
@@ -198,6 +206,7 @@ export default {
         gmod: 'Garry\'s mod',
         ark: 'ARK: Survival Evolved',
         rust: 'Rust',
+        fivem: 'FiveM',
         csgo: 'CS:GO',
         tf2: 'Team Fortress 2',
       },

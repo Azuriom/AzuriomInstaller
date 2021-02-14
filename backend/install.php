@@ -30,7 +30,7 @@ $steps = [
 
 // The Steam games supported by Azuriom
 $steamGames = [
-    'gmod', 'ark', 'rust', 'csgo', 'tf2',
+    'gmod', 'ark', 'rust', 'fivem', 'csgo', 'tf2',
 ];
 
 // The games supported by Azuriom
@@ -501,9 +501,6 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
         }
 
         if ($action === 'config') {
-            $name = request_input('name');
-            $email = request_input('email');
-            $password = request_input('password');
             $game = request_input('game');
 
             $locale = request_input('locale', 'en');
@@ -513,11 +510,29 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
             }
 
             if (! in_array($game, $steamGames, true)) {
+                $name = request_input('name');
+                $email = request_input('email');
+                $password = request_input('password');
+
                 if (empty($name) || empty($email) || empty($password)) {
                     send_json_response(['message' => 'Missing or invalid parameters.'], 422);
                 }
 
                 $game = request_input('minecraftPremium') ? 'mc-online' : 'mc-offline';
+
+                if ($game === 'mc-online') {
+                    $profile = read_url("https://api.mojang.com/users/profiles/minecraft/{$name}");
+
+                    if ($profile === null || ! ($profile = json_decode($profile, true))) {
+                        send_json_response(['message' => 'Invalid Minecraft username.'], 422);
+                    }
+
+                    $gameId = array_get($profile, 'id');
+
+                    if ($gameId === null) {
+                        send_json_response(['message' => 'No UUID for this username.'], 422);
+                    }
+                }
             } else {
                 $profile = read_url(request_input('steamProfile').'?xml=1');
 
@@ -527,13 +542,22 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 
                 preg_match('/<steamID64>(\d{17})<\/steamID64>/', $profile, $matches);
 
-                $steamId = $matches[1];
+                $email = 'admin@domain.ltd';
+                $gameId = $matches[1];
                 $steamKey = request_input('steamApiKey');
 
-                $keyResponse = read_url('https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002?steamids=76561198048368658&key='.$steamKey);
+                try {
+                    $keyResponse = read_url("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002?steamids={$gameId}&key={$steamKey}");
 
-                if ($keyResponse === null || strpos($keyResponse, 'personaname') === false) {
+                    if ($keyResponse === null || strpos($keyResponse, 'personaname') === false) {
+                        send_json_response(['message' => 'Invalid Steam API key.'], 422);
+                    }
+
+                    $name = array_get(json_decode($keyResponse, true), 'response.players.0.personaname', 'User');
+                } catch (Exception $e) {
                     send_json_response(['message' => 'Invalid Steam API key.'], 422);
+
+                    return;
                 }
             }
 
@@ -570,14 +594,16 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 
                 $kernel->call('storage:link', ! windows_os() ? ['--relative' => true] : []);
 
-                if (isset($steamId, $steamKey)) {
+                if (! isset($password)) {
                     $password = \Illuminate\Support\Str::random(32);
+                }
 
+                if (isset($gameId)) {
                     $user = \Azuriom\Models\User::create([
-                        'name' => 'Admin',
-                        'email' => 'admin@domain',
+                        'name' => $name,
+                        'email' => $email,
                         'password' => \Illuminate\Support\Facades\Hash::make($password),
-                        'game_id' => $steamId,
+                        'game_id' => $gameId,
                     ]);
 
                     $user->markEmailAsVerified();
