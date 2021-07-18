@@ -40,7 +40,7 @@ export default class App extends Vue {}
     z-index: 5;
     min-height: 100vh;
 
-    &:before {
+    &::before {
       content: '';
       position: fixed;
       top: 0;
@@ -67,7 +67,7 @@ export default class App extends Vue {}
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
 
-    &:after {
+    &::after {
       content: '';
       width: 80px;
       height: 3px;

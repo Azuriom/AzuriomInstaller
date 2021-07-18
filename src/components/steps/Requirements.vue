@@ -25,6 +25,11 @@
             <div v-if="!requirementStatus && hasHelp(requirement)" class="col-md-12 px-4 mt-2">
               <b-icon-info-circle-fill variant="primary" class="mr-1"/>
               <span v-html="translateRequirementHelp(requirement)"/>
+
+              <div v-if="requirement === 'rewrite' && hasTrailingSlash()" class="mt-2">
+                <b-icon-exclamation-circle-fill variant="warning" class="mr-1"/>
+                <span v-html="$t('requirements.trailingSlash')"/>
+              </div>
             </div>
           </div>
         </div>
@@ -119,6 +124,10 @@ export default {
       }
 
       return this.$t(`requirements.${requirement}`, { version: this.data.minPhpVersion });
+    },
+
+    hasTrailingSlash() {
+      return window.location.href.endsWith('/');
     },
   },
 };

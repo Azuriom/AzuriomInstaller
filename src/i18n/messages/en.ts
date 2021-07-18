@@ -17,6 +17,7 @@ export default {
     rewrite: 'URL rewrite enabled',
     extension: 'Extension {extension}',
     function: 'Function {function} enabled',
+    trailingSlash: 'Try to remove the <code>/</code> at the end of the URL',
 
     help: {
       writable: 'You can try this command to grant write permission: <code>{command}</code>.',

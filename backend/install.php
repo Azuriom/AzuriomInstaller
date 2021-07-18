@@ -197,17 +197,19 @@ function send_json_response($data = null, $status = 200)
  */
 function fix_utf8($text)
 {
-    return iconv('UTF-8', 'UTF-8//IGNORE', $text);
+    return function_exists('iconv')
+        ? iconv('UTF-8', 'UTF-8//IGNORE', $text)
+        : $text;
 }
 
 /**
  * Read the given url as a string.
  *
  * @param  string  $url
- * @param  callable|null  $curlCallback
+ * @param  array|null  $curlOptions
  * @return string
  */
-function read_url($url, $curlCallback = null)
+function read_url($url, $curlOptions = null)
 {
     $ch = curl_init($url);
 
@@ -222,8 +224,8 @@ function read_url($url, $curlCallback = null)
         CURLOPT_SSL_VERIFYHOST => 2,
     ]);
 
-    if ($curlCallback !== null) {
-        $curlCallback($ch);
+    if ($curlOptions !== null) {
+        curl_setopt_array($ch, $curlOptions);
     }
 
     $response = curl_exec($ch);
@@ -254,11 +256,7 @@ function read_url($url, $curlCallback = null)
  */
 function download_file($url, $path)
 {
-    $fp = fopen($path, 'wb+');
-
-    return read_url($url, function ($ch) use ($fp) {
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-    });
+    return read_url($url, [CURLOPT_FILE => fopen($path, 'wb+')]);
 }
 
 /**
@@ -335,7 +333,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 
         $step = 'check';
 
-        $writable = is_writable(__DIR__) && is_writable(__DIR__.'/public/install.php');
+        $writable = is_writable(__DIR__) && is_writable(__DIR__.'/public');
 
         $requirements = [
             'php' => version_compare(PHP_VERSION, $minPhpVersion, '>='),
@@ -609,7 +607,9 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
                     $user->markEmailAsVerified();
                     $user->forceFill(['role_id' => 2])->save();
 
-                    \Azuriom\Models\Setting::updateSettings('register', false);
+                    if (in_array($game, $steamGames, true)) {
+                        \Azuriom\Models\Setting::updateSettings('register', false);
+                    }
                 } else {
                     $kernel->call('user:create', [
                         '--name' => $name,

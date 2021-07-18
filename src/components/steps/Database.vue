@@ -86,7 +86,7 @@ export default {
       password: '',
 
       databaseDrivers: {
-        mysql: 'MySQL',
+        mysql: 'MySQL / MariaDB',
         sqlite: 'SQLite',
         pgsql: 'PostgreSQL',
         sqlsrv: 'SQLServer',

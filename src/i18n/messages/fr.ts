@@ -17,6 +17,7 @@ export default {
     rewrite: 'Réécriture d\'URL activée',
     extension: 'Extension {extension}',
     function: 'Fonction {function} activée',
+    trailingSlash: 'Essayez de retirer le <code>/</code> à la fin de l\'URL',
 
     help: {
       writable: 'Vous pouvez essayer de faire cette commande pour autoriser l\'écriture : <code>{command}</code>.',
