@@ -47,7 +47,7 @@
 
           <div class="col-md-3">
             <a href="#" @click.prevent="selectGame('csgo')">
-              <img src="./../../assets/games/csgo.png" alt="CS:GO" class="img-fluid rounded mb-1">
+              <img src="./../../assets/games/csgo.svg" alt="CS:GO" class="img-fluid rounded mb-1">
 
               <p>CS:GO</p>
             </a>
