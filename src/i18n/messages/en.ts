@@ -17,7 +17,6 @@ export default {
     rewrite: 'URL rewrite enabled',
     extension: 'Extension {extension}',
     function: 'Function {function} enabled',
-    trailingSlash: 'Try to remove the <code>/</code> at the end of the URL',
 
     help: {
       writable: 'You can try this command to grant write permission: <code>{command}</code>.',
@@ -36,71 +35,5 @@ export default {
     title: 'Download',
     legal: 'By continuing the installation, you accept <a href="https://azuriom.com/terms" target="_blank" rel="noopener noreferrer">Azuriom\'s TOS</a>.',
     go: 'Download',
-  },
-
-  database: {
-    title: 'Database',
-
-    type: 'Type',
-    host: 'Host',
-    port: 'Port',
-    database: 'Database',
-    user: 'User',
-    password: 'Password',
-
-    warn: '{database} is not recommended and should only be used when it is not possible to do otherwise.',
-  },
-
-  config: {
-    warn: 'Be careful, once the installation is finished it will not be possible to change this without reinstalling Azuriom entirely!',
-
-    game: {
-      title: 'Select your game',
-      change: 'Change game',
-    },
-
-    settings: {
-      title: 'Settings',
-      locale: 'Locale',
-    },
-
-    user: {
-      title: 'Admin account',
-
-      name: 'Name',
-      email: 'E-Mail address',
-      password: 'Password',
-      passwordConfirm: 'Confirm password',
-    },
-
-    minecraft: {
-      premium: 'Enabling username verification with Minecraft.net',
-    },
-
-    steam: {
-      profile: 'Steam Profile URL',
-      profileInfo: 'This Steam user will be admin on the site.',
-
-      key: 'Steam API Key',
-      keyInfo: 'You can find your Steam API Key on <a href="https://steamcommunity.com/dev/apikey" target="_blank" rel="noopener noreferrer">Steam</a>.',
-    },
-
-    install: 'Install',
-  },
-
-  installed: {
-    thanks: 'Thanks for choosing Azuriom !',
-    success: 'Your website has been successfully installed, you can now use your website and make something awesome !',
-    go: 'Get started',
-    support: 'If you appreciate Azuriom and the work we provides, please don\'t forget to <a href="https://azuriom.com/support-us" target="_blank" rel="noopener noreferrer">support us</a>.',
-  },
-
-  validation: {
-    required: 'This field is required.',
-    port: 'The port must be between 1 and 65535',
-    email: 'This e-mail address is not valid.',
-    password: 'The password must be at least 8 characters.',
-    passwordConfirm: 'The password confirmation does not match.',
-    steamProfile: 'The Steam Profile must be a valid URL.',
   },
 };

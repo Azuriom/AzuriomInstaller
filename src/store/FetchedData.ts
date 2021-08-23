@@ -15,7 +15,7 @@ export default class FetchedData {
 
   htaccess = true;
 
-  requirements!: object;
+  requirements!: Record<string, string>;
 
   compatible = false;
 

@@ -25,11 +25,6 @@
             <div v-if="!requirementStatus && hasHelp(requirement)" class="col-md-12 px-4 mt-2">
               <b-icon-info-circle-fill variant="primary" class="mr-1"/>
               <span v-html="translateRequirementHelp(requirement)"/>
-
-              <div v-if="requirement === 'rewrite' && hasTrailingSlash()" class="mt-2">
-                <b-icon-exclamation-circle-fill variant="warning" class="mr-1"/>
-                <span v-html="$t('requirements.trailingSlash')"/>
-              </div>
             </div>
           </div>
         </div>
@@ -60,7 +55,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapState } from 'vuex';
 
 export default {
@@ -72,19 +67,24 @@ export default {
   },
 
   methods: {
-    refreshRequirements() {
+    refreshRequirements(): void {
       this.$emit('refresh');
     },
 
-    nextStep() {
-      this.$store.commit('nextStep', this.extracted ? 'database' : 'download');
+    nextStep(): void {
+      if (this.extracted) {
+        setTimeout(() => window.location.reload(true));
+        return;
+      }
+
+      this.$store.commit('nextStep', 'download');
     },
 
-    hasHelp(requirement) {
+    hasHelp(requirement: string): void {
       return requirement !== 'php';
     },
 
-    translateRequirementHelp(requirement) {
+    translateRequirementHelp(requirement: string): string {
       if (requirement.startsWith('extension-')) {
         const v = this.data.phpVersion;
 
@@ -110,7 +110,7 @@ export default {
       return this.$t(`requirements.help.${requirement}`);
     },
 
-    translateRequirement(requirement) {
+    translateRequirement(requirement: string): string {
       if (requirement.startsWith('extension-')) {
         return this.$t('requirements.extension', {
           extension: requirement.replace('extension-', ''),
@@ -124,10 +124,6 @@ export default {
       }
 
       return this.$t(`requirements.${requirement}`, { version: this.data.minPhpVersion });
-    },
-
-    hasTrailingSlash() {
-      return window.location.href.endsWith('/');
     },
   },
 };

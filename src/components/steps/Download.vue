@@ -14,23 +14,25 @@
   </div>
 </template>
 
-<script>
-import Api from '@/services/Api';
+<script lang="ts">
 import { mapState } from 'vuex';
+import Api from '@/services/Api';
 
 export default {
   name: 'Download',
 
   methods: {
-    download() {
+    download(): void {
       this.$store.commit('startLoading');
 
       Api.download().then(() => {
-        this.$store.commit('nextStep', 'database');
+        setTimeout(() => {
+          this.$store.commit('finishLoading');
+          window.location.reload(true);
+        }, 750);
       }).catch((error) => {
-        this.$emit('error', error);
-      }).finally(() => {
         this.$store.commit('finishLoading');
+        this.$emit('error', error);
       });
     },
   },
