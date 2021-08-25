@@ -22,7 +22,7 @@
               <b-icon-x v-else scale="2" variant="danger" class="float-right"/>
             </div>
 
-            <div v-if="!requirementStatus && hasHelp(requirement)" class="col-md-12 px-4 mt-2">
+            <div v-if="!requirementStatus && requirement !== 'php'" class="col-md-12 px-4 mt-2">
               <b-icon-info-circle-fill variant="primary" class="mr-1"/>
               <span v-html="translateRequirementHelp(requirement)"/>
             </div>
@@ -56,75 +56,75 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { mapGetters, mapState } from 'vuex';
+import { TranslateResult } from 'vue-i18n';
+import FetchedData from '@/store/FetchedData';
 
-export default {
-  name: 'Requirements',
-
+@Component({
   computed: {
     ...mapState(['loading']),
     ...mapGetters(['requirements', 'compatible', 'extracted', 'data']),
   },
+})
+export default class Requirements extends Vue {
+  extracted!: boolean;
 
-  methods: {
-    refreshRequirements(): void {
-      this.$emit('refresh');
-    },
+  data!: FetchedData;
 
-    nextStep(): void {
-      if (this.extracted) {
-        setTimeout(() => window.location.reload(true));
-        return;
-      }
+  refreshRequirements(): void {
+    this.$emit('refresh');
+  }
 
-      this.$store.commit('nextStep', 'download');
-    },
+  nextStep(): void {
+    if (this.extracted) {
+      setTimeout(() => window.location.reload(true));
+      return;
+    }
 
-    hasHelp(requirement: string): void {
-      return requirement !== 'php';
-    },
+    this.$store.commit('nextStep', 'download');
+  }
 
-    translateRequirementHelp(requirement: string): string {
-      if (requirement.startsWith('extension-')) {
-        const v = this.data.phpVersion;
+  translateRequirementHelp(requirement: string): TranslateResult {
+    if (requirement.startsWith('extension-')) {
+      const v = this.data.phpVersion;
 
-        return this.$t('requirements.help.extension', {
-          command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
-        });
-      }
+      return this.$t('requirements.help.extension', {
+        command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
+      });
+    }
 
-      if (requirement.startsWith('function-')) {
-        return this.$t('requirements.help.function');
-      }
+    if (requirement.startsWith('function-')) {
+      return this.$t('requirements.help.function');
+    }
 
-      if (requirement === 'writable') {
-        return this.$t('requirements.help.writable', {
-          command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
-        });
-      }
+    if (requirement === 'writable') {
+      return this.$t('requirements.help.writable', {
+        command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
+      });
+    }
 
-      if (requirement === 'writable' && !this.data.htaccess) {
-        return this.$t('requirements.help.htaccess');
-      }
+    if (requirement === 'writable' && !this.data.htaccess) {
+      return this.$t('requirements.help.htaccess');
+    }
 
-      return this.$t(`requirements.help.${requirement}`);
-    },
+    return this.$t(`requirements.help.${requirement}`);
+  }
 
-    translateRequirement(requirement: string): string {
-      if (requirement.startsWith('extension-')) {
-        return this.$t('requirements.extension', {
-          extension: requirement.replace('extension-', ''),
-        });
-      }
+  translateRequirement(requirement: string): TranslateResult {
+    if (requirement.startsWith('extension-')) {
+      return this.$t('requirements.extension', {
+        extension: requirement.replace('extension-', ''),
+      });
+    }
 
-      if (requirement.startsWith('function-')) {
-        return this.$t('requirements.function', {
-          function: requirement.replace('function-', ''),
-        });
-      }
+    if (requirement.startsWith('function-')) {
+      return this.$t('requirements.function', {
+        function: requirement.replace('function-', ''),
+      });
+    }
 
-      return this.$t(`requirements.${requirement}`, { version: this.data.minPhpVersion });
-    },
-  },
-};
+    return this.$t(`requirements.${requirement}`, { version: this.data.minPhpVersion });
+  }
+}
 </script>
