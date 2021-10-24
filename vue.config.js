@@ -1,5 +1,6 @@
 module.exports = {
   lintOnSave: false,
   filenameHashing: false,
-  // publicPath: 'https://azuriom.com/install/assets/',
+  outputDir: './build',
+  // publicPath: 'https://cdn.jsdelivr.net/gh/Azuriom/AzuriomInstaller/dist/',
 };

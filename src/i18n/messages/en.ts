@@ -8,7 +8,7 @@ export default {
   unknown: 'Unknown',
 
   help: {
-    cUrl60: 'You can follow the steps in the <a href="https://azuriom.com/docs/troubleshooting" target="_blank" rel="noopener noreferrer">documentation</a> to solve this issue. Path of the the php.ini: <code>{path}</code>',
+    cUrl60: 'You can follow the steps in the <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">documentation</a> to solve this issue. Path of the the php.ini: <code>{path}</code>',
   },
 
   requirements: {

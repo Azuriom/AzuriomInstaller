@@ -74,6 +74,12 @@ export default class AzuriomInstaller extends Vue {
     this.$store.commit('startLoading');
 
     Api.fetch().then((response) => {
+      if (!response.data.requirements) {
+        this.$store.commit('nextStep', 'error');
+
+        this.addError(this.$t('error', { error: 'No data in response' }) as string);
+      }
+
       this.$store.commit('updateData', response.data);
     }).catch((error) => {
       if (this.preLoading) {

@@ -283,22 +283,21 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
 
         if ($action === 'download') {
             // Get the latest download url
-            $json = read_url('https://api.github.com/repos/Azuriom/Azuriom/releases/latest');
+            $json = read_url('https://market.azuriom.com/api/download');
 
             $response = json_decode($json);
 
             if (! $response) {
-                throw new RuntimeException('The response from GitHub API is not a valid JSON.');
+                throw new RuntimeException('The response from Azuriom API is not a valid JSON.');
             }
 
-            $file = __DIR__.'/Azuriom.zip';
-            $downloadData = $response->assets[0];
+            $file = __DIR__.'/'.$response->file;
             $needDownload = true;
 
             if (file_exists($file)) {
                 // File was already downloaded before, if it's valid we don't
                 // need to download it again.
-                if ($downloadData->size === filesize($file)) {
+                if (hash_equals($response->hash, hash_file('sha256', $file))) {
                     $needDownload = false;
                 } else {
                     unlink($file);
@@ -306,14 +305,14 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
             }
 
             if ($needDownload) {
-                download_file($downloadData->browser_download_url, $file);
+                download_file($response->url, $file);
             }
 
             if (! file_exists($file)) {
                 throw new RuntimeException('The file was not downloaded.');
             }
 
-            if ($downloadData->size !== filesize($file)) {
+            if (! hash_equals($response->hash, hash_file('sha256', $file))) {
                 throw new RuntimeException('File size don\'t match the expected size.');
             }
 
