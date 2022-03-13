@@ -9,9 +9,9 @@
  * @author Azuriom
  */
 
-$installerVersion = '0.3.0';
+$installerVersion = '0.4.0';
 
-$minPhpVersion = '7.3';
+$minPhpVersion = '8.0';
 
 $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',
@@ -231,6 +231,11 @@ function has_function($function)
     } catch (Exception $e) {
         return false;
     }
+}
+
+if (array_get($_GET, 'phpinfo') === '') {
+    phpinfo();
+    exit();
 }
 
 //
