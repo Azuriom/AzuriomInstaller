@@ -1,17 +1,18 @@
-import Vue from 'vue';
-import Vuelidate from 'vuelidate';
-import { IconsPlugin } from 'bootstrap-vue';
-import App from './App.vue';
-import store from './store';
-import i18n from './i18n';
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+import App from './App.vue'
+import en from '@/lang/en'
+import fr from '@/lang/fr'
 
-Vue.config.productionTip = false;
+const messages = {
+  en,
+  fr,
+}
 
-Vue.use(IconsPlugin);
-Vue.use(Vuelidate);
+const i18n = createI18n({
+  locale: navigator.language ? navigator.language.split('-')[0] : 'en',
+  fallbackLocale: 'en',
+  messages,
+})
 
-new Vue({
-  store,
-  i18n,
-  render: (h) => h(App),
-}).$mount('#app');
+createApp(App).use(i18n).mount('#app')
