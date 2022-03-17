@@ -4,23 +4,17 @@
  * The Azuriom installer.
  *
  * This file is not a part of Azuriom itself,
- * and can be remove when Azuriom is installed.
+ * and can be removed when Azuriom is installed.
  *
  * @author Azuriom
  */
 
-$installerVersion = '0.4.0';
+$installerVersion = '1.0.0';
 
 $minPhpVersion = '8.0';
 
 $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',
-];
-
-// The different installation steps
-$steps = [
-    'check', // Check the server requirements
-    'download', // Download and install the CMS files
 ];
 
 $locales = ['en', 'fr'];
@@ -171,7 +165,7 @@ function read_url($url, $curlOptions = null)
     curl_setopt_array($ch, [
         CURLOPT_CONNECTTIMEOUT => 150,
         CURLOPT_HTTPHEADER => [
-            'User-Agent: Azuriom Installer',
+            'User-Agent: Azuriom Installer v1',
         ],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
@@ -274,15 +268,12 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
         $data['requirements'] = $requirements;
 
         $data['compatible'] = ! in_array(false, $requirements, true);
-
-        $data['status'] = [
-            'downloaded' => file_exists(__DIR__.'/Azuriom.zip'),
-            'extracted' => $extracted,
-        ];
+        $data['downloaded'] = file_exists(__DIR__.'/Azuriom.zip');
+        $data['extracted'] = $extracted;
 
         $action = request_input('action');
 
-        if ($action === 'info' || request_method() !== 'POST') {
+        if (request_method() !== 'POST') {
             send_json_response($data);
         }
 
