@@ -48,7 +48,7 @@
     <footer class="text-center">
       <flag-english @click="setLocale('en')" />
       <flag-french @click="setLocale('fr')" />
-      <flag-zhcn @click="setLocale('zh-CN')" />
+      <flag-ChineseSimplified @click="setLocale('zhcn')" />
 
       <p
         class="mb-0"
