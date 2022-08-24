@@ -17,7 +17,7 @@ $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',
 ];
 
-$locales = ['en', 'fr'];
+$locales = ['en', 'fr', 'zh-CN'];
 
 set_error_handler(function ($level, $message, $file = 'unknown', $line = 0) {
     http_response_code(500);

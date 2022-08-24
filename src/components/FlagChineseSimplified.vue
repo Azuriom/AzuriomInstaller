@@ -1,0 +1,27 @@
+<template>
+  <button class="btn btn-link p-0 mb-1 mx-1" title="简体中文">
+    <svg
+      class="locale-flag"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 36 36"
+    >
+      <defs>
+      <path id="s" d="M0,-1 0.587785,0.809017 -0.951057,-0.309017H0.951057L-0.587785,0.809017z" fill="#FFFF00"/>
+      </defs>
+      <rect width="30" height="20" fill="#EE1C25"/>
+      <use xlink:href="#s" transform="translate(5,5) scale(3)"/>
+      <use xlink:href="#s" transform="translate(10,2) rotate(23.036243)"/>
+      <use xlink:href="#s" transform="translate(12,4) rotate(45.869898)"/>
+      <use xlink:href="#s" transform="translate(12,7) rotate(69.945396)"/>
+      <use xlink:href="#s" transform="translate(10,9) rotate(20.659808)"/>
+    </svg>
+  </button>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'flag-zhcn',
+})
+</script>

@@ -48,6 +48,7 @@
     <footer class="text-center">
       <flag-english @click="setLocale('en')" />
       <flag-french @click="setLocale('fr')" />
+      <flag-flag-zhcn @click="setLocale('zh-CN')" />
 
       <p
         class="mb-0"
@@ -65,12 +66,14 @@ import Download from '@/views/DownloadView.vue'
 import Requirements from '@/views/RequirementsView.vue'
 import FlagEnglish from '@/components/FlagEnglish.vue'
 import FlagFrench from '@/components/FlagFrench.vue'
+import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
 
 export default defineComponent({
   name: 'AzuriomInstaller',
   components: {
     FlagEnglish,
     FlagFrench,
+    FlagChineseSimplified,
     Download,
     Requirements,
   },
