@@ -2,7 +2,7 @@
   <div class="text-center">
     <h2>{{ $t('download.title') }}</h2>
 
-    <p v-html="$t('download.legal')" />
+    <p v-html="$t('download.info')" />
 
     <button @click="download" class="btn btn-primary">
       <BIconCloudDownload /> {{ $t('download.go') }}

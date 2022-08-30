@@ -76,7 +76,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import type { PropType } from 'vue'
+import type { FetchedData } from '@/api'
+
+import { defineComponent } from 'vue'
 import {
   BIconArrowClockwise,
   BIconArrowRight,
@@ -85,7 +88,6 @@ import {
   BIconExclamationTriangle,
   BIconXLg,
 } from 'bootstrap-icons-vue'
-import { FetchedData } from '@/api'
 
 export default defineComponent({
   name: 'RequirementsView',
@@ -123,7 +125,7 @@ export default defineComponent({
         const v = this.data.phpVersion
 
         return this.$t('requirements.help.extension', {
-          command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
+          command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite3 php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
         })
       }
 

@@ -40,8 +40,7 @@ export default {
 
   download: {
     title: '下载',
-    legal:
-      '继续安装即表示你接受 <a href="https://azuriom.com/terms" target="_blank" rel="noopener noreferrer">Azuriom 服务条款</a>.',
+    info: '现在可以开始下载 Azuriom 了! 此操作可能需要几分钟时间...',
     go: '下载',
   },
 }

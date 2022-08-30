@@ -27,7 +27,7 @@
       </div>
 
       <requirements
-        v-else-if="step === 'requirements'"
+        v-else-if="data && step === 'requirements'"
         :data="data"
         :loading="loading"
         @reload="reloadPage"
@@ -59,9 +59,11 @@
 </template>
 
 <script lang="ts">
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
+import type { FetchedData } from '@/api'
+
 import { defineComponent } from 'vue'
-import { baseFetch, download, FetchedData } from '@/api'
+import { baseFetch, download } from '@/api'
 import Download from '@/views/DownloadView.vue'
 import Requirements from '@/views/RequirementsView.vue'
 import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'

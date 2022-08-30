@@ -8,7 +8,6 @@
  *
  * @author Azuriom
  */
-
 $installerVersion = '1.0.0';
 
 $minPhpVersion = '8.0';
@@ -46,8 +45,9 @@ function parse_php_version()
  * Get an item from an array using "dot" notation.
  *
  * @param  array  $array
- * @param  string|int  $key
+ * @param  int|string  $key
  * @param  mixed  $default
+ *
  * @return mixed
  */
 function array_get($array, $key, $default = null)
@@ -72,7 +72,7 @@ function array_get($array, $key, $default = null)
 }
 
 /**
- * Get the HTTP method of the request
+ * Get the HTTP method of the request.
  *
  * @return string
  */
@@ -82,7 +82,7 @@ function request_method()
 }
 
 /**
- * Get the base url of the request
+ * Get the base url of the request.
  *
  * @return string
  */
@@ -99,9 +99,11 @@ $requestContent = null;
 
 /**
  * Get an input from the request.
+ *
  * @param  string  $key
  * @param  mixed  $default
- * @return string|null
+ *
+ * @return null|string
  */
 function request_input($key, $default = null)
 {
@@ -153,7 +155,8 @@ function send_json_response($data = null, $status = 200)
  * Read the given url as a string.
  *
  * @param  string  $url
- * @param  array|null  $curlOptions
+ * @param  null|array  $curlOptions
+ *
  * @return string
  */
 function read_url($url, $curlOptions = null)
@@ -180,6 +183,7 @@ function read_url($url, $curlOptions = null)
 
     if ($errno || $response === false) {
         $error = curl_error($ch);
+
         throw new RuntimeException("cURL error {$errno}: {$error}");
     }
 
@@ -199,6 +203,7 @@ function read_url($url, $curlOptions = null)
  *
  * @param  string  $url
  * @param  string  $path
+ *
  * @return string
  */
 function download_file($url, $path)
@@ -210,6 +215,7 @@ function download_file($url, $path)
  * Determines if a function exists and is not disabled.
  *
  * @param  string  $function
+ *
  * @return bool
  */
 function has_function($function)
@@ -233,7 +239,8 @@ if (array_get($_GET, 'phpinfo') === '') {
 //
 // Give the requested data if the request is from AJAX.
 //
-if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest') {
+if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest'
+    || array_get($_GET, 'execute') === 'php') {
     try {
         $data = [
             'installerVersion' => $installerVersion,

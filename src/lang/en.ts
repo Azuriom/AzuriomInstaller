@@ -43,8 +43,7 @@ export default {
 
   download: {
     title: 'Download',
-    legal:
-      'By continuing the installation, you accept <a href="https://azuriom.com/terms" target="_blank" rel="noopener noreferrer">Azuriom\'s TOS</a>.',
+    info: 'Azuriom can now be downloaded, this operation may take a few minutes...',
     go: 'Download',
   },
 }

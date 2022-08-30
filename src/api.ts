@@ -1,4 +1,6 @@
-import axios, { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
+
+import axios from 'axios'
 
 export interface FetchedData {
   installerVersion: string
@@ -16,6 +18,9 @@ export interface FetchedData {
 
 const client = axios.create({
   baseURL: window.location.href,
+  params: {
+    execute: 'php',
+  },
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },
