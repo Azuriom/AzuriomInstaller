@@ -6,6 +6,7 @@ import fr from '@/lang/fr'
 import zh_CN from '@/lang/zh-CN'
 
 const i18n = createI18n({
+  legacy: false,
   locale: navigator.language ? navigator.language.split('-')[0] : 'en',
   fallbackLocale: 'en',
   messages: {

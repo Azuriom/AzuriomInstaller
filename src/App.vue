@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import AzuriomInstaller from './views/AzuriomInstaller.vue'
+</script>
+
 <template>
   <div id="app" class="container">
     <div class="row justify-content-center align-items-center py-3 py-md-5">
@@ -5,7 +9,7 @@
         class="content col-xl-8 col-lg-10 col-12 p-3 px-md-5 py-md-4 rounded"
       >
         <div class="text-center">
-          <img src="./assets/logo.svg" alt="Azuriom logo" class="logo mb-4" />
+          <img src="./assets/logo.svg" alt="Azuriom" class="mb-4" width="350" />
         </div>
 
         <AzuriomInstaller />
@@ -13,18 +17,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import AzuriomInstaller from './views/AzuriomInstaller.vue'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    AzuriomInstaller,
-  },
-})
-</script>
 
 <style lang="scss">
 @import 'bootstrap';
@@ -85,16 +77,17 @@ h1 {
   }
 }
 
-.logo {
-  width: 100%;
-  max-width: 350px;
+.btn .spinner-border {
+  vertical-align: middle;
 }
 
-.btn:not(.btn-link) {
-  border-radius: 50rem;
+.spinner-border-lg {
+  height: 3rem;
+  width: 3rem;
+}
 
-  .spinner-border {
-    vertical-align: middle;
-  }
+.locale-flag {
+  height: 1.75rem;
+  width: 1.75rem;
 }
 </style>

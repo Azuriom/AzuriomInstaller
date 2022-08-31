@@ -1,3 +1,99 @@
+<script setup lang="ts">
+import type { FetchedData } from '@/api'
+
+import axios from 'axios'
+import { computed, onMounted, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { baseFetch, download } from '@/api'
+import DownloadView from '@/views/DownloadView.vue'
+import RequirementsView from '@/views/RequirementsView.vue'
+import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
+import FlagEnglish from '@/components/FlagEnglish.vue'
+import FlagFrench from '@/components/FlagFrench.vue'
+
+const { locale, t } = useI18n({ useScope: 'global' })
+
+const preLoading = ref(true)
+const loading = ref(false)
+const step = ref('requirements')
+const data = ref<FetchedData>()
+const errors = reactive<string[]>([])
+const phpIniPath = computed(() => data.value?.phpIniPath ?? t('unknown'))
+
+onMounted(() => refreshRequirements())
+
+async function refreshRequirements() {
+  errors.length = 0
+  loading.value = true
+
+  try {
+    const response = await baseFetch()
+
+    if (!response.data.requirements) {
+      errors.push(t('error', { error: 'No data in response' }))
+      step.value = 'error'
+      preLoading.value = false
+      return
+    }
+
+    data.value = response.data
+    loading.value = false
+  } catch (e) {
+    catchError(e)
+  }
+
+  preLoading.value = false
+}
+
+function showDownload() {
+  step.value = 'download'
+}
+
+async function startDownload() {
+  loading.value = true
+  errors.length = 0
+
+  try {
+    await download()
+
+    setTimeout(() => {
+      loading.value = false
+
+      reloadPage()
+    }, 750)
+  } catch (e) {
+    catchError(e)
+  }
+}
+
+function catchError(error: unknown) {
+  loading.value = false
+
+  if (preLoading.value) {
+    step.value = 'error'
+  }
+
+  if (axios.isAxiosError(error) && error.response?.data.message) {
+    errors.push(error.response.data.message)
+    return
+  }
+
+  errors.push(t('error', { error }))
+}
+
+function setLocale(newLocale: string) {
+  locale.value = newLocale
+}
+
+function reloadPage() {
+  // Force reloads on supported browsers. On other browsers, the boolean
+  // will just be ignored.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  window.location.reload(true)
+}
+</script>
+
 <template>
   <div>
     <h1 class="text-center">{{ $t('title') }}</h1>
@@ -11,7 +107,7 @@
       {{ error }}
       <div
         v-if="error.startsWith('cURL error 60:')"
-        v-html="$t('help.cUrl60', { path: phpIniPath })"
+        v-html="t('help.cUrl60', { path: phpIniPath })"
       />
     </div>
 
@@ -23,10 +119,10 @@
       >
         <div class="spinner-border spinner-border-lg text-primary mb-3" />
 
-        <h2>{{ $t('loading') }}</h2>
+        <h2>{{ t('loading') }}</h2>
       </div>
 
-      <requirements
+      <RequirementsView
         v-else-if="data && step === 'requirements'"
         :data="data"
         :loading="loading"
@@ -35,154 +131,30 @@
         @next="showDownload"
       />
 
-      <download
+      <DownloadView
         v-else-if="step === 'download'"
         :loading="loading"
-        @download="download"
-        @error="handleAxiosError"
+        @download="startDownload"
+        @error="catchError"
       />
     </transition>
 
     <hr />
 
     <footer class="text-center">
-      <flag-english @click="setLocale('en')" />
-      <flag-french @click="setLocale('fr')" />
-      <flag-chinese-simplified @click="setLocale('zh-CN')" />
+      <FlagEnglish @click="setLocale('en')" />
+      <FlagFrench @click="setLocale('fr')" />
+      <FlagChineseSimplified @click="setLocale('zh-CN')" />
 
       <p
         class="mb-0"
-        v-html="$t('copyright', { year: new Date().getFullYear() })"
+        v-html="t('copyright', { year: new Date().getFullYear() })"
       />
     </footer>
   </div>
 </template>
 
-<script lang="ts">
-import type { AxiosError } from 'axios'
-import type { FetchedData } from '@/api'
-
-import { defineComponent } from 'vue'
-import { baseFetch, download } from '@/api'
-import Download from '@/views/DownloadView.vue'
-import Requirements from '@/views/RequirementsView.vue'
-import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
-import FlagEnglish from '@/components/FlagEnglish.vue'
-import FlagFrench from '@/components/FlagFrench.vue'
-
-export default defineComponent({
-  name: 'AzuriomInstaller',
-  components: {
-    FlagChineseSimplified,
-    FlagEnglish,
-    FlagFrench,
-    Download,
-    Requirements,
-  },
-  data() {
-    return {
-      preLoading: true,
-      loading: false,
-      errors: [] as string[],
-      step: 'requirements',
-      data: null as unknown as FetchedData | null,
-    }
-  },
-  computed: {
-    phpIniPath(): string {
-      if (this.data && this.data.phpIniPath) {
-        return this.data.phpIniPath
-      }
-
-      return this.$t('unknown')
-    },
-  },
-  mounted() {
-    this.refreshRequirements()
-  },
-  methods: {
-    async refreshRequirements() {
-      this.errors = []
-      this.loading = true
-
-      try {
-        const response = await baseFetch()
-
-        if (!response.data.requirements) {
-          this.addError(this.$t('error', { error: 'No data in response' }))
-          this.step = 'error'
-          this.preLoading = false
-          return
-        }
-
-        this.data = response.data
-        this.loading = false
-      } catch (e) {
-        this.handleAxiosError(e as AxiosError)
-      }
-
-      this.preLoading = false
-    },
-
-    showDownload(): void {
-      this.step = 'download'
-    },
-
-    async download() {
-      this.errors = []
-      this.loading = true
-
-      try {
-        await download()
-
-        setTimeout(() => {
-          this.loading = false
-          this.reloadPage()
-        }, 750)
-      } catch (e) {
-        this.handleAxiosError(e as AxiosError)
-      }
-    },
-
-    handleAxiosError(error: AxiosError) {
-      this.loading = false
-
-      if (this.preLoading) {
-        this.step = 'error'
-      }
-
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        this.addError(error.response.data.message)
-        return
-      }
-
-      this.addError(this.$t('error', { error }))
-    },
-
-    addError(error: string) {
-      this.errors.push(error)
-    },
-
-    setLocale(locale: string) {
-      this.$i18n.locale = locale
-    },
-
-    reloadPage() {
-      // Force reloads on supported browsers. On other browsers, the boolean
-      // will just be ignored.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      window.location.reload(true)
-    },
-  },
-})
-</script>
-
-<style lang="scss">
+<style scoped lang="scss">
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.1s ease-in-out;
@@ -191,15 +163,5 @@ export default defineComponent({
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
-}
-
-.spinner-border-lg {
-  height: 3rem;
-  width: 3rem;
-}
-
-.locale-flag {
-  height: 1.75rem;
-  width: 1.75rem;
 }
 </style>

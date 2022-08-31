@@ -1,6 +1,78 @@
+<script setup lang="ts">
+import type { FetchedData } from '@/api'
+
+import {
+  BIconArrowClockwise,
+  BIconArrowRight,
+  BIconCheckLg,
+  BIconInfoCircle,
+  BIconExclamationTriangle,
+  BIconXLg,
+} from 'bootstrap-icons-vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const props = defineProps<{ loading: boolean; data: FetchedData }>()
+const emit = defineEmits<{
+  (e: 'refresh'): void
+  (e: 'reload'): void
+  (e: 'next'): void
+}>()
+
+function nextStep() {
+  if (props.data.extracted) {
+    setTimeout(() => emit('reload'))
+    return
+  }
+
+  emit('next')
+}
+
+function translateRequirement(requirement: string) {
+  if (requirement.startsWith('extension-')) {
+    return t('requirements.extension', {
+      extension: requirement.replace('extension-', ''),
+    })
+  }
+
+  if (requirement.startsWith('function-')) {
+    return t('requirements.function', {
+      function: requirement.replace('function-', ''),
+    })
+  }
+
+  return t(`requirements.${requirement}`, { version: props.data.minPhpVersion })
+}
+
+function translateRequirementHelp(requirement: string) {
+  if (requirement.startsWith('extension-')) {
+    const v = props.data.phpVersion
+
+    return t('requirements.help.extension', {
+      command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite3 php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
+    })
+  }
+
+  if (requirement.startsWith('function-')) {
+    return t('requirements.help.function')
+  }
+
+  if (requirement === 'writable') {
+    return t('requirements.help.writable', {
+      command: `chmod -R 755 ${props.data.path} && chown -R www-data:www-data ${props.data.path}`,
+    })
+  }
+
+  return requirement === 'writable' && !props.data.htaccess
+    ? t('requirements.help.htaccess')
+    : t(`requirements.help.${requirement}`)
+}
+</script>
+
 <template>
   <div>
-    <p v-html="$t('welcome')" class="text-center" />
+    <p v-html="t('welcome')" class="text-center" />
 
     <div v-if="!data.compatible">
       <div class="list-group mb-3 requirements">
@@ -49,120 +121,28 @@
       </div>
 
       <div class="alert alert-danger">
-        <BIconExclamationTriangle /> {{ $t('requirements.missing') }}
+        <BIconExclamationTriangle /> {{ t('requirements.missing') }}
       </div>
 
       <div class="text-center">
         <button
-          @click="refreshRequirements"
+          @click="emit('refresh')"
           :disabled="loading"
-          class="btn btn-secondary mx-1"
+          class="btn btn-secondary rounded-pill mx-1"
         >
           <BIconArrowClockwise />
-          {{ $t('requirements.recheck') }}
+          {{ t('requirements.recheck') }}
           <span v-if="loading" class="spinner-border spinner-border-sm" />
         </button>
       </div>
     </div>
 
     <div v-else class="text-center text-success">
-      <p>{{ $t('requirements.success') }}</p>
+      <p>{{ t('requirements.success') }}</p>
 
       <button @click="nextStep" class="btn btn-primary rounded-pill mx-1">
-        {{ $t('continue') }} <BIconArrowRight />
+        {{ t('continue') }} <BIconArrowRight />
       </button>
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import type { PropType } from 'vue'
-import type { FetchedData } from '@/api'
-
-import { defineComponent } from 'vue'
-import {
-  BIconArrowClockwise,
-  BIconArrowRight,
-  BIconCheckLg,
-  BIconInfoCircle,
-  BIconExclamationTriangle,
-  BIconXLg,
-} from 'bootstrap-icons-vue'
-
-export default defineComponent({
-  name: 'RequirementsView',
-  components: {
-    BIconArrowClockwise,
-    BIconArrowRight,
-    BIconCheckLg,
-    BIconInfoCircle,
-    BIconExclamationTriangle,
-    BIconXLg,
-  },
-  props: {
-    loading: Boolean,
-    data: {
-      type: Object as PropType<FetchedData>,
-      required: true,
-    },
-  },
-  methods: {
-    refreshRequirements() {
-      this.$emit('refresh')
-    },
-
-    nextStep() {
-      if (this.data.extracted) {
-        setTimeout(() => this.$emit('reload'))
-        return
-      }
-
-      this.$emit('next')
-    },
-
-    translateRequirementHelp(requirement: string) {
-      if (requirement.startsWith('extension-')) {
-        const v = this.data.phpVersion
-
-        return this.$t('requirements.help.extension', {
-          command: `apt install curl php${v}-mysql php${v}-pgsql php${v}-sqlite3 php${v}-bcmath php${v}-mbstring php${v}-xml php${v}-curl php${v}-zip php${v}-gd`,
-        })
-      }
-
-      if (requirement.startsWith('function-')) {
-        return this.$t('requirements.help.function')
-      }
-
-      if (requirement === 'writable') {
-        return this.$t('requirements.help.writable', {
-          command: `chmod -R 755 ${this.data.path} && chown -R www-data:www-data ${this.data.path}`,
-        })
-      }
-
-      if (requirement === 'writable' && !this.data.htaccess) {
-        return this.$t('requirements.help.htaccess')
-      }
-
-      return this.$t(`requirements.help.${requirement}`)
-    },
-
-    translateRequirement(requirement: string) {
-      if (requirement.startsWith('extension-')) {
-        return this.$t('requirements.extension', {
-          extension: requirement.replace('extension-', ''),
-        })
-      }
-
-      if (requirement.startsWith('function-')) {
-        return this.$t('requirements.function', {
-          function: requirement.replace('function-', ''),
-        })
-      }
-
-      return this.$t(`requirements.${requirement}`, {
-        version: this.data.minPhpVersion,
-      })
-    },
-  },
-})
-</script>
