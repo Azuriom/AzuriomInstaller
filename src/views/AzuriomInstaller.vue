@@ -8,6 +8,7 @@ import { baseFetch, download } from '@/api'
 import DownloadView from '@/views/DownloadView.vue'
 import RequirementsView from '@/views/RequirementsView.vue'
 import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
+import FlagGerman from '@/components/FlagGerman.vue'
 import FlagEnglish from '@/components/FlagEnglish.vue'
 import FlagFrench from '@/components/FlagFrench.vue'
 
@@ -142,6 +143,7 @@ function reloadPage() {
     <hr />
 
     <footer class="text-center">
+      <FlagGerman @click="setLocale('de')" />
       <FlagEnglish @click="setLocale('en')" />
       <FlagFrench @click="setLocale('fr')" />
       <FlagChineseSimplified @click="setLocale('zh-CN')" />
