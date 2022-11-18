@@ -143,9 +143,9 @@ function reloadPage() {
     <hr />
 
     <footer class="text-center">
-      <FlagGerman @click="setLocale('de')" />
       <FlagEnglish @click="setLocale('en')" />
       <FlagFrench @click="setLocale('fr')" />
+      <FlagGerman @click="setLocale('de')" />
       <FlagChineseSimplified @click="setLocale('zh-CN')" />
 
       <p
