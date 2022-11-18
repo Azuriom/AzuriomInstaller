@@ -1,18 +1,18 @@
 <template>
-  <button class="btn btn-link p-0 mb-1 mx-1" title="German">
+  <button class="btn btn-link p-0 mb-1 mx-1" title="Deutsch">
     <svg
       class="locale-flag"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 55.2 38.4"
+      viewBox="0 0 36 36"
     >
       <path
-        d="M3.03 0h49.13c1.67 0 3.03 1.36 3.03 3.03v32.33c0 1.66-1.36 3.02-3.02 3.03H3.02C1.36 38.4 0 37.03 0 35.37V3.03C0 1.36 1.36 0 3.03 0z"
+        fill="#FFCD05"
+        d="M0 27c0 2.209 1.791 4 4 4h28c2.209 0 4-1.791 4-4v-4H0v4z"
       />
+      <path fill="#ED1F24" d="M0 14h36v9H0z" />
       <path
-        d="M0 12.8h55.2v22.57c0 1.67-1.36 3.03-3.03 3.03H3.03C1.36 38.4 0 37.04 0 35.37V12.8z" fill="#d00"
-      />
-      <path
-        d="M0 25.6h55.2v9.77c0 1.66-1.36 3.02-3.02 3.03H3.03A3.04 3.04 0 010 35.37V25.6z" fill="#ffce00"
+        fill="#141414"
+        d="M32 5H4C1.791 5 0 6.791 0 9v5h36V9c0-2.209-1.791-4-4-4z"
       />
     </svg>
   </button>
