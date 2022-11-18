@@ -10,6 +10,7 @@ import RequirementsView from '@/views/RequirementsView.vue'
 import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
 import FlagEnglish from '@/components/FlagEnglish.vue'
 import FlagFrench from '@/components/FlagFrench.vue'
+import FlagGerman from '@/components/FlagGerman.vue'
 
 const { locale, t } = useI18n({ useScope: 'global' })
 
@@ -144,6 +145,7 @@ function reloadPage() {
     <footer class="text-center">
       <FlagEnglish @click="setLocale('en')" />
       <FlagFrench @click="setLocale('fr')" />
+      <FlagGerman @click="setLocale('de')" />
       <FlagChineseSimplified @click="setLocale('zh-CN')" />
 
       <p
