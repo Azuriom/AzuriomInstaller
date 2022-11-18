@@ -8,9 +8,9 @@ import { baseFetch, download } from '@/api'
 import DownloadView from '@/views/DownloadView.vue'
 import RequirementsView from '@/views/RequirementsView.vue'
 import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
-import FlagGerman from '@/components/FlagGerman.vue'
 import FlagEnglish from '@/components/FlagEnglish.vue'
 import FlagFrench from '@/components/FlagFrench.vue'
+import FlagGerman from '@/components/FlagGerman.vue'
 
 const { locale, t } = useI18n({ useScope: 'global' })
 
