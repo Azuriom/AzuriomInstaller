@@ -108,7 +108,7 @@ function reloadPage() {
       {{ error }}
       <div
         v-if="error.startsWith('cURL error 60:')"
-        v-html="t('help.cUrl60', { path: phpIniPath })"
+        v-html="t('help.curl60', { path: phpIniPath })"
       />
     </div>
 

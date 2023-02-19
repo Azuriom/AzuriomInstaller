@@ -1,21 +1,15 @@
+import messages from '@intlify/unplugin-vue-i18n/messages'
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
 import App from './App.vue'
-import de from '@/lang/de'
-import en from '@/lang/en'
-import fr from '@/lang/fr'
-import zh_CN from '@/lang/zh-CN'
+
+import './assets/app.scss'
 
 const i18n = createI18n({
   legacy: false,
   locale: navigator.language ? navigator.language.split('-')[0] : 'en',
   fallbackLocale: 'en',
-  messages: {
-    de,
-    en,
-    fr,
-    'zh-CN': zh_CN,
-  },
+  messages,
 })
 
 createApp(App).use(i18n).mount('#app')

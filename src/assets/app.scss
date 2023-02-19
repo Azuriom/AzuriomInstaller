@@ -1,0 +1,61 @@
+@import 'variables';
+@import '~bootstrap';
+
+body {
+    background: #2b1954;
+    background: linear-gradient(45deg, #161334 0%, #181438 36%, #201643 70%, #2b1954 100%);
+}
+
+#app {
+    z-index: 5;
+    min-height: 100vh;
+
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: url('./background.svg') no-repeat center / cover;
+        z-index: -10;
+    }
+}
+
+.row {
+    min-height: 100%;
+}
+
+.content {
+    z-index: 15;
+}
+
+h1 {
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+
+    &::after {
+        content: '';
+        width: 80px;
+        height: 3px;
+        bottom: 0;
+        right: calc(50% - 40px);
+        position: absolute;
+        background: var(--bs-primary);
+    }
+}
+
+.btn .spinner-border {
+    vertical-align: middle;
+}
+
+.spinner-border-lg {
+    height: 3rem;
+    width: 3rem;
+}
+
+.locale-flag {
+    height: 1.75rem;
+    width: 1.75rem;
+}
