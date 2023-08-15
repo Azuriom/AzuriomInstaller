@@ -8,9 +8,9 @@
  *
  * @author Azuriom
  */
-$installerVersion = '1.0.0';
+$installerVersion = '1.1.1';
 
-$minPhpVersion = '8.0';
+$minPhpVersion = '8.1';
 
 $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',

@@ -14,11 +14,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 const props = defineProps<{ loading: boolean; data: FetchedData }>()
-const emit = defineEmits<{
-  (e: 'refresh'): void
-  (e: 'reload'): void
-  (e: 'next'): void
-}>()
+const emit = defineEmits<{ refresh: []; reload: []; next: [] }>()
 
 function nextStep() {
   if (props.data.extracted) {
@@ -55,7 +51,9 @@ function translateRequirementHelp(requirement: string) {
   }
 
   if (requirement.startsWith('function-')) {
-    return t('requirements.help.function')
+    return t('requirements.help.function', {
+      path: props.data.phpIniPath || '',
+    })
   }
 
   if (requirement === 'writable') {

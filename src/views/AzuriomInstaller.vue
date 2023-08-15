@@ -7,10 +7,15 @@ import { useI18n } from 'vue-i18n'
 import { baseFetch, download } from '@/api'
 import DownloadView from '@/views/DownloadView.vue'
 import RequirementsView from '@/views/RequirementsView.vue'
-import FlagChineseSimplified from '@/components/FlagChineseSimplified.vue'
-import FlagEnglish from '@/components/FlagEnglish.vue'
-import FlagFrench from '@/components/FlagFrench.vue'
-import FlagGerman from '@/components/FlagGerman.vue'
+import FlagBrazil from '@/components/FlagBrazil.vue'
+import FlagChina from '@/components/FlagChina.vue'
+import FlagCzechia from '@/components/FlagCzechia.vue'
+import FlagFrance from '@/components/FlagFrance.vue'
+import FlagGermany from '@/components/FlagGermany.vue'
+import FlagRussia from '@/components/FlagRussia.vue'
+import FlagSweden from '@/components/FlagSweden.vue'
+import FlagUkraine from '@/components/FlagUkraine.vue'
+import FlagUnitedStates from '@/components/FlagUnitedStates.vue'
 
 const { locale, t } = useI18n({ useScope: 'global' })
 
@@ -118,7 +123,7 @@ function reloadPage() {
         class="d-flex flex-column align-items-center justify-content-center"
         style="height: 300px"
       >
-        <div class="spinner-border spinner-border-lg text-primary mb-3" />
+        <div class="spinner-border spinner-border-lg mb-3" />
 
         <h2>{{ t('loading') }}</h2>
       </div>
@@ -143,10 +148,15 @@ function reloadPage() {
     <hr />
 
     <footer class="text-center">
-      <FlagEnglish @click="setLocale('en')" />
-      <FlagFrench @click="setLocale('fr')" />
-      <FlagGerman @click="setLocale('de')" />
-      <FlagChineseSimplified @click="setLocale('zh-CN')" />
+      <FlagUnitedStates @click="setLocale('en')" title="English" />
+      <FlagFrance @click="setLocale('fr')" title="Français" />
+      <FlagGermany @click="setLocale('de')" title="Deutsch" />
+      <FlagSweden @click="setLocale('sv-SE')" title="Svenska" />
+      <FlagBrazil @click="setLocale('pt-BR')" title="Português brasileiro" />
+      <FlagCzechia @click="setLocale('cs')" title="Čeština" />
+      <FlagRussia @click="setLocale('ru')" title="Русский" />
+      <FlagChina @click="setLocale('zh-CN')" title="简体中文" />
+      <FlagUkraine @click="setLocale('uk')" title="Українська" />
 
       <p
         class="mb-0"

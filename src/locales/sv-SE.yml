@@ -1,0 +1,28 @@
+title: 'Installera'
+loading: 'Laddar...'
+continue: 'Fortsätt'
+error: 'Ett fel har uppstått: {error}'
+welcome: "Azuriom är <strong>nästa generations</strong> spel CMS, det är <strong>gratis</strong> och <strong>öppen källkod</strong>, och är en <strong>modern, tillförlitliga, snabba och säkra</strong> alternativ till befintliga CMS så att du kan ha <strong>bästa webbupplevelse möjligt</strong>."
+copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Alla rättigheter förbehållna.'
+unknown: 'Unknown'
+help:
+  curl60: 'Du kan följa stegen i <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">dokumentationen</a> för att lösa problemet. Path of the php.ini: <code>{path}</code>'
+requirements:
+  php: 'PHP {version} eller högre'
+  writable: 'Skriva behörighet'
+  rewrite: 'URL omskrivning aktiverad'
+  extension: 'Förlängning {extension}'
+  function: 'Funktion {function} aktiverad'
+  help:
+    writable: 'Du kan prova detta kommando för att bevilja skrivbehörighet: <code>{command}</code>.'
+    rewrite: 'Du kan följa instruktionerna i <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">vår dokumentation</a> för att aktivera URL-omskrivning.'
+    htaccess: 'Filen <code>.htaccess</code> eller <code>public/.htaccess</code> saknas. Kontrollera att du har aktiverat dolda filer och att filen är närvarande.'
+    extension: 'Du kan prova detta kommando för att installera de saknade PHP-tilläggen: <code>{command}</code>.<br>När detta är gjort, starta om Apache eller Nginx.'
+    function: 'Du måste aktivera denna funktion i php.ini (<code>{path}</code>) filen PHP genom att redigera värdet <code>disable_functions</code>.'
+  missing: "Din server har inte de nödvändiga kraven för att installera Azuriom."
+  recheck: 'Kontrollera igen'
+  success: 'Din server har förutsättningar att installera Azuriom, du kan fortsätta installationen !'
+download:
+  title: 'Hämta'
+  info: 'Azurien kan nu laddas ner, denna operation kan ta några minuter...'
+  go: 'Hämta'

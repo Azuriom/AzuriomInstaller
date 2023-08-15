@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-link p-0 mb-1 mx-1" title="简体中文">
+  <button class="btn btn-link p-0 mb-1 mx-1">
     <svg
       class="locale-flag"
       xmlns="http://www.w3.org/2000/svg"

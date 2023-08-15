@@ -1,0 +1,28 @@
+title: 'Instalace'
+loading: 'Načítání...'
+continue: 'Pokračovat'
+error: 'Došlo k chybě: {error}'
+welcome: "Azuriom je herní CMS <strong>nové generace</strong>, je <strong>bezplatné</strong> a <strong>open-source</strong> a je <strong>moderní, spolehlivou, rychlou a bezpečnou</strong> alternativou k již existujícím CMS, takže můžete mít <strong>nejlepší možný zážitek z webu</strong>."
+copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Všechna práva vyhrazena.'
+unknown: 'Neznámé'
+help:
+  curl60: 'Pro vyřešení tohoto problému následujte kroky v <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">dokumentaci</a>. Cesta souboru php.ini: <code>{path}</code>'
+requirements:
+  php: 'PHP verze {version} nebo vyšší'
+  writable: 'Oprávnění k zápisu'
+  rewrite: 'Přepis URL povolen'
+  extension: 'Rozšíření {extension}'
+  function: 'Funkce {function} povolena'
+  help:
+    writable: 'K udělení oprávnění k zápisu můžete vyzkoušet tento příkaz: <code>{command}</code>.'
+    rewrite: 'Pro povolení přepisu URL se řiďte pokyny v <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">naší dokumentaci</a>.'
+    htaccess: 'Soubor <code>.htaccess</code> nebo <code>public/.htaccess</code> chybí. Ujistěte se, že jste povolili zobrazení skrytých souborů a že soubor existuje.'
+    extension: 'Pro instalaci chybějících rozšíření PHP můžete vyzkoušet tento příkaz: <code>{command}</code>.<br>Jakmile budete mít hotovo, restartujte Apache nebo Nginx.'
+    function: 'Tuto funkci je třeba povolit v PHP souboru php.ini úpravou hodnoty <code>disable_functions</code>.'
+  missing: "Váš server nemá potřebné požadavky na instalaci Azuriomu."
+  recheck: 'Znovu zkontrolovat'
+  success: 'Váš server je připraven k instalaci Azuriomu, můžete pokračovat v instalaci!'
+download:
+  title: 'Stáhnout'
+  info: 'Azuriom může být nyní stažen, tato akce může trvat několik minut...'
+  go: 'Stáhnout'

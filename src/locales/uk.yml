@@ -1,0 +1,28 @@
+title: 'Інсталяція'
+loading: 'Завантаження...'
+continue: 'Продовжити'
+error: 'Сталася помилка: {error}'
+welcome: "Azuriom — це ігрова CMS <strong>нового покоління</strong>, вона <strong>безплатна</strong> з <strong>відкритим кодом</strong> і є <strong>сучасною, надійною, швидкою та безпечною< /strong> альтернативою існуючих CMS, щоб мати <strong>найкращий вебдосвід</strong>."
+copyright: 'Авторське право &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Всі права захищені.'
+unknown: 'Невідомо'
+help:
+  curl60: 'Ви можете виконати дії в <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">документації</a>, щоб розв''язати цю проблему. Шлях php.ini: <code>{path}</code>'
+requirements:
+  php: 'PHP {version} або вище'
+  writable: 'Дозвіл на запис'
+  rewrite: 'URL перезапис увімкнено'
+  extension: 'Розширення {extension}'
+  function: 'Функція {function} увімкнена'
+  help:
+    writable: 'Ви можете спробувати цю команду щоб надати дозвіл на запис: <code>{command}</code>.'
+    rewrite: 'Ви можете слідувати інструкціям в <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">нашій документації</a> для активації перезапису URL.'
+    htaccess: 'Файл <code>.htaccess</code> або <code>public/.htaccess</code> відсутній. Переконайтесь, що ви маєте включені приховані файли та що цей файл присутній.'
+    extension: 'Ви можете спробувати цю команду для встановлення відсутніх розширень PHP: <code>{command}</code>.<br>Як тільки буде виконано, перезапустіть Apache або Nginx.'
+    function: 'Вам необхідно ввімкнути цю функцію у файлі php.ini (<code>{path}</code>) через редагування значення <code>disable_functions</code>.'
+  missing: "Ваш сервер немає необхідних вимог для встановлення Azuriom."
+  recheck: 'Перевірити знову'
+  success: 'У вашого сервера є передумови для встановлення Azuriom, ви можете продовжити встановлення!'
+download:
+  title: 'Завантажити'
+  info: 'Азуріом тепер можна завантажити, ця операція може зайняти кілька хвилин...'
+  go: 'Завантажити'

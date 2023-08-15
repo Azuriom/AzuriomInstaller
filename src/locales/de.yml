@@ -21,7 +21,7 @@ requirements:
     rewrite: 'Du kannst den Anweisungen in <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">unserer Dokumentation</a> folgen, um das URL-Rewriting zu aktivieren.'
     htaccess: 'Die Datei <code>.htaccess</code> oder <code>public/.htaccess</code> fehlt. Vergewissere dich, dass du versteckte Dateien aktiviert hast und dass die Datei vorhanden ist.'
     extension: 'Du kannst diesen Befehl ausprobieren, um die fehlenden PHP-Erweiterungen zu installieren: <code>{command}</code>.<br>Nachdem du das getan hast, starte Apache oder Nginx neu.'
-    function: 'Du musst diese Funktion in der php.ini-Datei von PHP aktivieren, indem du den Wert von <code>disable_functions</code> änderst.'
+    function: 'Du musst diese Funktion in der php.ini-Datei (<code>{path}</code>) aktivieren, indem du den Wert von <code>disable_functions</code> änderst.'
 
   missing: 'Dein Server hat nicht die nötigen Voraussetzungen, um Azuriom zu installieren.'
   recheck: 'Neu prüfen'
