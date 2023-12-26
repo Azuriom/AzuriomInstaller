@@ -1,10 +1,6 @@
 <template>
   <button class="btn btn-link p-0 mb-1 mx-1">
-    <svg
-      class="locale-flag"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 36 36"
-    >
+    <svg class="locale-flag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
       <path
         fill="#D7141A"
         d="M1.383 29.973C2.084 30.628 2.998 31 4 31h28c2.209 0 4-1.791 4-4.5V18H17.5L1.383 29.973z"
@@ -20,4 +16,3 @@
     </svg>
   </button>
 </template>
-<script setup lang="ts"></script>

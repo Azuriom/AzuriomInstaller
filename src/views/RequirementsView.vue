@@ -25,6 +25,13 @@ function nextStep() {
   emit('next')
 }
 
+function markdownify(text: string) {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\\n/g, '<br>')
+}
+
 function translateRequirement(requirement: string) {
   if (requirement.startsWith('extension-')) {
     return t('requirements.extension', {
@@ -64,13 +71,17 @@ function translateRequirementHelp(requirement: string) {
 
   return requirement === 'writable' && !props.data.htaccess
     ? t('requirements.help.htaccess')
-    : t(`requirements.help.${requirement}`)
+    : t(`requirements.help.${requirement}`, {
+        docs: `<a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">${t(
+          'docs',
+        )}</a>`,
+      })
 }
 </script>
 
 <template>
   <div>
-    <p v-html="t('welcome')" class="text-center" />
+    <p class="text-center">{{ t('welcome') }}</p>
 
     <div v-if="!data.compatible">
       <div class="list-group mb-3 requirements">
@@ -95,24 +106,18 @@ function translateRequirementHelp(requirement: string) {
             </div>
 
             <div v-else class="col-2 fs-5">
-              <span
-                :class="requirementStatus ? 'text-success' : 'text-danger'"
-                class="float-end"
-              >
+              <span :class="requirementStatus ? 'text-success' : 'text-danger'" class="float-end">
                 <BIconCheckLg v-if="requirementStatus" />
 
                 <BIconXLg v-if="!requirementStatus" />
               </span>
             </div>
 
-            <div
-              v-if="!requirementStatus && requirement !== 'php'"
-              class="col-md-12 px-4 mt-2"
-            >
+            <div v-if="!requirementStatus && requirement !== 'php'" class="col-md-12 px-4 mt-2">
               <span class="text-primary me-1">
                 <BIconInfoCircle />
               </span>
-              <span v-html="translateRequirementHelp(requirement)" />
+              <span v-html="markdownify(translateRequirementHelp(requirement))" />
             </div>
           </div>
         </div>

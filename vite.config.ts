@@ -8,7 +8,7 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: 'https://cdn.jsdelivr.net/gh/Azuriom/AzuriomInstaller@1.1.1/build/',
+  // base: 'https://cdn.jsdelivr.net/gh/Azuriom/AzuriomInstaller@1.1.2/build/',
   build: {
     // outDir: 'build',
   },
@@ -17,7 +17,7 @@ export default defineConfig({
     VueI18nPlugin({
       include: resolve(
         dirname(fileURLToPath(import.meta.url)),
-        './src/locales/**'
+        './src/locales/**',
       ),
     }),
   ],

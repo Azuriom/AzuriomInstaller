@@ -2,11 +2,12 @@ title: 'Інсталяція'
 loading: 'Завантаження...'
 continue: 'Продовжити'
 error: 'Сталася помилка: {error}'
-welcome: "Azuriom — це ігрова CMS <strong>нового покоління</strong>, вона <strong>безплатна</strong> з <strong>відкритим кодом</strong> і є <strong>сучасною, надійною, швидкою та безпечною< /strong> альтернативою існуючих CMS, щоб мати <strong>найкращий вебдосвід</strong>."
-copyright: 'Авторське право &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Всі права захищені.'
+welcome: 'Азуріом є повним безкоштовним та відкритим вихідним веб-рішенням для ігрових серверів. Насолоджуйтесь десятками розширень для нескінченних можливостей.'
+copyright: 'Авторське право © 2019-{year} {azuriom} - Всі права захищені.'
 unknown: 'Невідомо'
+docs: 'документації'
 help:
-  curl60: 'Ви можете виконати дії в <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">документації</a>, щоб розв''язати цю проблему. Шлях php.ini: <code>{path}</code>'
+  curl60: "Ви можете виконати дії в {docs}, щоб розв'язати цю проблему. Шлях php.ini: {path}"
 requirements:
   php: 'PHP {version} або вище'
   writable: 'Дозвіл на запис'
@@ -14,12 +15,12 @@ requirements:
   extension: 'Розширення {extension}'
   function: 'Функція {function} увімкнена'
   help:
-    writable: 'Ви можете спробувати цю команду щоб надати дозвіл на запис: <code>{command}</code>.'
-    rewrite: 'Ви можете слідувати інструкціям в <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">нашій документації</a> для активації перезапису URL.'
-    htaccess: 'Файл <code>.htaccess</code> або <code>public/.htaccess</code> відсутній. Переконайтесь, що ви маєте включені приховані файли та що цей файл присутній.'
-    extension: 'Ви можете спробувати цю команду для встановлення відсутніх розширень PHP: <code>{command}</code>.<br>Як тільки буде виконано, перезапустіть Apache або Nginx.'
-    function: 'Вам необхідно ввімкнути цю функцію у файлі php.ini (<code>{path}</code>) через редагування значення <code>disable_functions</code>.'
-  missing: "Ваш сервер немає необхідних вимог для встановлення Azuriom."
+    writable: 'Ви можете спробувати цю команду щоб надати дозвіл на запис: `{command}`.'
+    rewrite: 'Ви можете слідувати інструкціям в нашій {docs} для активації перезапису URL.'
+    htaccess: 'Файл `.htaccess` або `public/.htaccess` відсутній. Переконайтесь, що ви маєте включені приховані файли та що цей файл присутній.'
+    extension: 'Ви можете спробувати цю команду для встановлення відсутніх розширень PHP: `{command}`.\n Як тільки буде виконано, перезапустіть Apache або Nginx.'
+    function: 'Ця функція може бути увімкнена в файлі php.ini (`{path}`), редагуючи значення `disable_function`. На спільному інтернет-хості, можливо, вам доведеться попросити про їхню підтримку.'
+  missing: 'Ваш сервер немає необхідних вимог для встановлення Azuriom.'
   recheck: 'Перевірити знову'
   success: 'У вашого сервера є передумови для встановлення Azuriom, ви можете продовжити встановлення!'
 download:

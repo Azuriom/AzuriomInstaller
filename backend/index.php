@@ -8,7 +8,7 @@
  *
  * @author Azuriom
  */
-$installerVersion = '1.1.1';
+$installerVersion = '1.1.2';
 
 $minPhpVersion = '8.1';
 

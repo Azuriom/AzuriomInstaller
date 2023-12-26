@@ -27,5 +27,7 @@ coverage
 *.sln
 *.sw?
 
+*.tsbuildinfo
+
 # PHP-CS-Fixer
 .php-cs-fixer.cache

@@ -2,11 +2,12 @@ title: 'Instalação'
 loading: 'Carregando...'
 continue: 'Continuar'
 error: 'Ocorreu um erro: {error}'
-welcome: "Azuriom é o <strong>da próxima geração</strong> jogo CMS, é <strong>gratuito</strong> e <strong>de código aberto</strong>, e é um <strong>moderno, alternativa confiável, rápida e segura</strong> ao CMS existente para que você tenha a melhor <strong>experiência web possível</strong>."
-copyright: 'Copyright &copy; 2019-{year} <a href="https://azuriom.com" target="_blank" rel="noopener noreferrer">Azuriom</a> - Todos os direitos reservados.'
+welcome: 'Azuriom é uma solução web completamente gratuita e código aberto para servidores de jogo. Desfrute de dezenas de extensões por infinitas possibilidades.'
+copyright: 'Copyright © 2019-{year} {azuriom} - Todos os direitos reservados.'
 unknown: 'Desconhecido'
+docs: 'documentação'
 help:
-  curl60: 'Você pode seguir as etapas na <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">documentação</a> para resolver este problema. Caminho do php.ini: <code>{path}</code>'
+  curl60: 'Você pode seguir as etapas na {docs} para resolver este problema. Caminho do php.ini: {path}'
 requirements:
   php: 'PHP {version} ou superior'
   writable: 'Permissão de escrita'
@@ -14,12 +15,12 @@ requirements:
   extension: 'Extensão {extension}'
   function: 'Função {function} habilitada'
   help:
-    writable: 'Você pode tentar este comando para conceder permissão de escrita: <code>{command}</code>.'
-    rewrite: 'Você pode seguir as instruções na <a href="https://azuriom.com/docs/installation" target="_blank" rel="noopener noreferrer">nossa documentação</a> para habilitar a reescrita de URL.'
-    htaccess: 'O arquivo <code>.htaccess</code> ou <code>public/.htaccess</code> está faltando. Certifique-se de que você ativou arquivos ocultos e que o arquivo está presente.'
-    extension: 'Você pode tentar este comando para instalar as extensões PHP que faltam: <code>{command}</code>.<br>Uma vez feito, reinicie o Apache ou Nginx.'
-    function: 'Você precisa ativar esta função no arquivo php.ini do PHP, editando o valor de <code>disable_functions</code>.'
-  missing: "Seu servidor não tem os requisitos necessários para instalar o Azuriom."
+    writable: 'Você pode tentar este comando para conceder permissão de escrita: `{command}`.'
+    rewrite: 'Você pode seguir as instruções na nossa {docs} para habilitar a reescrita de URL.'
+    htaccess: 'O arquivo `.htaccess` ou `public/.htaccess` está faltando. Certifique-se de que você ativou arquivos ocultos e que o arquivo está presente.'
+    extension: 'Você pode tentar este comando para instalar as extensões PHP que faltam: `{command}`.\n Uma vez feito, reinicie o Apache ou Nginx.'
+    function: 'Você precisa ativar esta função no arquivo php.ini do PHP, editando o valor de `disable_functions`.'
+  missing: 'Seu servidor não tem os requisitos necessários para instalar o Azuriom.'
   recheck: 'Verificar novamente'
   success: 'Seu servidor tem os pré-requisitos para instalar o Azuriom, você pode continuar a instalação!'
 download:

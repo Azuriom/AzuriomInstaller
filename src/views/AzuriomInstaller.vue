@@ -13,7 +13,9 @@ import FlagCzechia from '@/components/FlagCzechia.vue'
 import FlagFrance from '@/components/FlagFrance.vue'
 import FlagGermany from '@/components/FlagGermany.vue'
 import FlagRussia from '@/components/FlagRussia.vue'
+import FlagSpain from '@/components/FlagSpain.vue'
 import FlagSweden from '@/components/FlagSweden.vue'
+import FlagTurkey from '@/components/FlagTurkey.vue'
 import FlagUkraine from '@/components/FlagUkraine.vue'
 import FlagUnitedStates from '@/components/FlagUnitedStates.vue'
 
@@ -102,19 +104,19 @@ function reloadPage() {
 
 <template>
   <div>
-    <h1 class="text-center">{{ $t('title') }}</h1>
+    <h1 class="text-center display-4 fw-semibold mb-3">{{ $t('title') }}</h1>
 
-    <div
-      v-for="error in errors"
-      :key="error"
-      class="alert alert-danger"
-      role="alert"
-    >
+    <div v-for="error in errors" :key="error" class="alert alert-danger" role="alert">
       {{ error }}
-      <div
-        v-if="error.startsWith('cURL error 60:')"
-        v-html="t('help.curl60', { path: phpIniPath })"
-      />
+
+      <i18n-t keypath="help.curl60" tag="div" v-if="error.startsWith('cURL error 60:')">
+        <template #docs>
+          <a href="https://azuriom.com/docs/faq" target="_blank" rel="noopener noreferrer">
+            {{ $t('docs') }}
+          </a>
+        </template>
+        <template #path>{{ phpIniPath }}</template>
+      </i18n-t>
     </div>
 
     <transition name="fade" mode="out-in">
@@ -151,17 +153,21 @@ function reloadPage() {
       <FlagUnitedStates @click="setLocale('en')" title="English" />
       <FlagFrance @click="setLocale('fr')" title="Français" />
       <FlagGermany @click="setLocale('de')" title="Deutsch" />
+      <FlagSpain @click="setLocale('es-ES')" title="Español" />
       <FlagSweden @click="setLocale('sv-SE')" title="Svenska" />
       <FlagBrazil @click="setLocale('pt-BR')" title="Português brasileiro" />
       <FlagCzechia @click="setLocale('cs')" title="Čeština" />
       <FlagRussia @click="setLocale('ru')" title="Русский" />
       <FlagChina @click="setLocale('zh-CN')" title="简体中文" />
       <FlagUkraine @click="setLocale('uk')" title="Українська" />
+      <FlagTurkey @click="setLocale('tr')" title="Türkçe" />
 
-      <p
-        class="mb-0"
-        v-html="t('copyright', { year: new Date().getFullYear() })"
-      />
+      <i18n-t keypath="copyright" tag="p" class="mb-0">
+        <template #azuriom>
+          <a href="https://azuriom.com/" target="_blank" rel="noopener noreferrer">Azuriom</a>
+        </template>
+        <template #year>{{ new Date().getFullYear() }}</template>
+      </i18n-t>
     </footer>
   </div>
 </template>
