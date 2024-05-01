@@ -12,6 +12,7 @@ import FlagChina from '@/components/FlagChina.vue'
 import FlagCzechia from '@/components/FlagCzechia.vue'
 import FlagFrance from '@/components/FlagFrance.vue'
 import FlagGermany from '@/components/FlagGermany.vue'
+import FlagPoland from '@/components/FlagPoland.vue'
 import FlagRussia from '@/components/FlagRussia.vue'
 import FlagSpain from '@/components/FlagSpain.vue'
 import FlagSweden from '@/components/FlagSweden.vue'
@@ -157,6 +158,7 @@ function reloadPage() {
       <FlagSweden @click="setLocale('sv-SE')" title="Svenska" />
       <FlagBrazil @click="setLocale('pt-BR')" title="Português brasileiro" />
       <FlagCzechia @click="setLocale('cs')" title="Čeština" />
+      <FlagPoland @click="setLocale('pl')" title="Polski" />
       <FlagRussia @click="setLocale('ru')" title="Русский" />
       <FlagChina @click="setLocale('zh-CN')" title="简体中文" />
       <FlagUkraine @click="setLocale('uk')" title="Українська" />

@@ -14,6 +14,7 @@ export interface FetchedData {
   requirements: Record<string, boolean>
   compatible: boolean
   extracted?: boolean
+  windows?: boolean
 }
 
 const client = axios.create({

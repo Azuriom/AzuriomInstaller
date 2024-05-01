@@ -77,6 +77,18 @@ function translateRequirementHelp(requirement: string) {
         )}</a>`,
       })
 }
+
+function hasRequirementHelp(requirement: string) {
+  if (requirement === 'php') {
+    return false
+  }
+
+  if (!props.data.windows) {
+    return true
+  }
+
+  return requirement !== 'writable' && !requirement.startsWith('extension-')
+}
 </script>
 
 <template>
@@ -86,7 +98,7 @@ function translateRequirementHelp(requirement: string) {
     <div v-if="!data.compatible">
       <div class="list-group mb-3 requirements">
         <div
-          v-for="(requirementStatus, requirement) in data.requirements"
+          v-for="(reqStatus, requirement) in data.requirements"
           :key="requirement"
           class="list-group-item"
         >
@@ -98,7 +110,7 @@ function translateRequirementHelp(requirement: string) {
             <div v-if="requirement === 'php'" class="col-2">
               <span
                 class="float-end"
-                :class="requirementStatus ? 'text-success' : 'text-danger'"
+                :class="reqStatus ? 'text-success' : 'text-danger'"
                 :title="data.phpFullVersion"
               >
                 {{ data.phpVersion }}
@@ -106,14 +118,14 @@ function translateRequirementHelp(requirement: string) {
             </div>
 
             <div v-else class="col-2 fs-5">
-              <span :class="requirementStatus ? 'text-success' : 'text-danger'" class="float-end">
-                <BIconCheckLg v-if="requirementStatus" />
+              <span :class="reqStatus ? 'text-success' : 'text-danger'" class="float-end">
+                <BIconCheckLg v-if="reqStatus" />
 
-                <BIconXLg v-if="!requirementStatus" />
+                <BIconXLg v-if="!reqStatus" />
               </span>
             </div>
 
-            <div v-if="!requirementStatus && requirement !== 'php'" class="col-md-12 px-4 mt-2">
+            <div v-if="!reqStatus && hasRequirementHelp(requirement)" class="col-md-12 px-4 mt-2">
               <span class="text-primary me-1">
                 <BIconInfoCircle />
               </span>

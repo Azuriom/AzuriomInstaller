@@ -1,0 +1,29 @@
+title: 'Instalacja'
+loading: 'Ładowanie...'
+continue: 'Kontyntynuj'
+error: 'Wystąpił błąd: {error}'
+welcome: 'Azuriom to kompletne, darmowe i otwarte rozwiązanie sieciowe dla serwerów gier. Korzystaj z dziesiątek rozszerzeń dla nieskończonych możliwości.'
+copyright: 'Copyright ©️ 2019-{year} {azuriom} - Wszystkie prawa zastrzeżone.'
+unknown: 'Nieznane'
+documentation: 'Dokumentacja'
+help:
+  curl60: 'Możesz wykonać kroki w {docs}, aby rozwiązać ten problem. Ścieżka php.ini: {path}'
+requirements:
+  php: 'PHP {version} lub wyższa'
+  writable: 'Pozwolenie na zapis'
+  rewrite: 'Przepisywanie URL włączone'
+  extension: 'Rozszerzenie {extension}'
+  function: 'Funkcja {function} włączona'
+  help:
+    writable: 'Możesz spróbować tej komendy, aby przyznać uprawnienia do zapisu: `{command}`.'
+    rewrite: 'Możesz postępować zgodnie z instrukcjami w naszych {docs}, aby włączyć przepisywanie adresów URL.'
+    htaccess: 'Brakuje pliku `.htaccess` lub `public/.htaccess`. Upewnij się, że włączyłeś ukryte pliki i że plik jest obecny.'
+    extension: "Możesz spróbować tej komendy, aby zainstalować brakujące rozszerzenia PHP: `{command}`.\n Po zakończeniu zrestartuj Apache lub Nginx."
+    function: 'Ta funkcja może być włączona w pliku php.ini (`{path}`) poprzez edycję wartości `disable_functions`. W ramach wspólnego hostingu internetowego być może będziesz musiał poprosić o wsparcie.'
+  missing: 'Twój serwer nie spełnia warunków potrzebnych do instalacji Azuriom.'
+  recheck: 'Sprawdź ponownie'
+  success: 'Twój serwer spełnia warunki instalacji Azuriom, możesz kontynuować instalację!'
+download:
+  title: 'Pobierz'
+  info: 'Azuriom można teraz pobrać, ta operacja może potrwać kilka minut...'
+  go: 'Pobierz'
