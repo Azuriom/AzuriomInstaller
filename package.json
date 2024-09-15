@@ -1,6 +1,6 @@
 {
   "name": "azuriom-installer",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
-    "axios": "^1.1.0",
     "bootstrap": "^5.3.0",
     "bootstrap-icons-vue": "^1.8.1",
+    "itty-fetcher": "^0.9.4",
     "vue": "^3.3.11",
     "vue-i18n": "^9.1.9"
   },

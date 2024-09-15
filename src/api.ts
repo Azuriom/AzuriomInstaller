@@ -1,6 +1,4 @@
-import type { AxiosResponse } from 'axios'
-
-import axios from 'axios'
+import { fetcher } from 'itty-fetcher'
 
 export interface FetchedData {
   installerVersion: string
@@ -17,21 +15,21 @@ export interface FetchedData {
   windows?: boolean
 }
 
-const client = axios.create({
-  baseURL: window.location.href,
-  params: {
-    execute: 'php',
-  },
+const client = fetcher({
+  base: window.location.href,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },
+  transformRequest(request) {
+    return { ...request, url: `${request.url}?execute=php` }
+  },
 })
 
-export function baseFetch(): Promise<AxiosResponse> {
+export function baseFetch(): Promise<FetchedData> {
   return client.get('')
 }
 
-export function download(): Promise<AxiosResponse> {
+export function download(): Promise<void> {
   return client.post('', {
     action: 'download',
   })

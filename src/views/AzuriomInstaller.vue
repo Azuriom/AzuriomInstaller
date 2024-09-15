@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FetchedData } from '@/api'
 
-import axios from 'axios'
+import { StatusError } from 'itty-fetcher'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { baseFetch, download } from '@/api'
@@ -12,6 +12,7 @@ import FlagChina from '@/components/FlagChina.vue'
 import FlagCzechia from '@/components/FlagCzechia.vue'
 import FlagFrance from '@/components/FlagFrance.vue'
 import FlagGermany from '@/components/FlagGermany.vue'
+import FlagNetherlands from '@/components/FlagNetherlands.vue'
 import FlagPoland from '@/components/FlagPoland.vue'
 import FlagRussia from '@/components/FlagRussia.vue'
 import FlagSpain from '@/components/FlagSpain.vue'
@@ -38,14 +39,14 @@ async function refreshRequirements() {
   try {
     const response = await baseFetch()
 
-    if (!response.data.requirements) {
+    if (!response.requirements) {
       errors.push(t('error', { error: 'No data in response' }))
       step.value = 'error'
       preLoading.value = false
       return
     }
 
-    data.value = response.data
+    data.value = response
     loading.value = false
   } catch (e) {
     catchError(e)
@@ -82,8 +83,8 @@ function catchError(error: unknown) {
     step.value = 'error'
   }
 
-  if (axios.isAxiosError(error) && error.response?.data.message) {
-    errors.push(error.response.data.message)
+  if (error instanceof StatusError) {
+    errors.push(error.message)
     return
   }
 
@@ -154,6 +155,7 @@ function reloadPage() {
       <FlagUnitedStates @click="setLocale('en')" title="English" />
       <FlagFrance @click="setLocale('fr')" title="Français" />
       <FlagGermany @click="setLocale('de')" title="Deutsch" />
+      <FlagNetherlands @click="setLocale('nl')" title="Nederlands" />
       <FlagSpain @click="setLocale('es-ES')" title="Español" />
       <FlagSweden @click="setLocale('sv-SE')" title="Svenska" />
       <FlagBrazil @click="setLocale('pt-BR')" title="Português brasileiro" />

@@ -27,9 +27,9 @@
  *
  * @author Azuriom
  */
-$installerVersion = '1.1.2';
+$installerVersion = '1.2.0';
 
-$minPhpVersion = '8.1';
+$minPhpVersion = '8.2';
 
 $requiredExtensions = [
     'bcmath', 'ctype', 'json', 'mbstring', 'openssl', 'PDO', 'tokenizer', 'xml', 'xmlwriter', 'curl', 'fileinfo', 'zip',
@@ -364,8 +364,7 @@ if (array_get($_SERVER, 'HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest'
 
         send_json_response('Unexpected action: '.$action, 403);
     } catch (Throwable $t) {
-        http_response_code(500);
-        exit(json_encode(['message' => $t->getMessage()]));
+        send_json_response(['message' => $t->getMessage()], 500);
     }
 }
 
