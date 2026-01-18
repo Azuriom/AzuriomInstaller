@@ -212,8 +212,6 @@ function read_url($url, $curlOptions = null)
         throw new RuntimeException("HTTP code {$statusCode} returned for '{$url}'.", $statusCode);
     }
 
-    curl_close($ch);
-
     return $response;
 }
 
